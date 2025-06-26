@@ -1,68 +1,68 @@
-'use client';
-import { useState } from 'react';
-import calculate, { Result } from '../utils/berechnung';
-import * as XLSX from 'xlsx';
-import jsPDF from 'jspdf';
+'use client'
+import { useState } from 'react'
+import calculate, { Result } from '../utils/berechnung'
+import * as XLSX from 'xlsx'
+import jsPDF from 'jspdf'
 
 export default function RundenzeitTabelle() {
-  const [name, setName] = useState('');
-  const [zielzeit, setZielzeit] = useState('');
-  const [runden, setRunden] = useState<number[]>(Array(13).fill(0));
-  const [ignore, setIgnore] = useState<boolean[]>(Array(13).fill(false));
-  const [history, setHistory] = useState<Result[]>([]);
+  const [name, setName] = useState('')
+  const [zielzeit, setZielzeit] = useState('')
+  const [runden, setRunden] = useState<number[]>(Array(13).fill(0))
+  const [ignore, setIgnore] = useState<boolean[]>(Array(13).fill(false))
+  const [history, setHistory] = useState<Result[]>([])
 
   const handleRoundChange = (i: number, value: string) => {
-    const nums = [...runden];
-    nums[i] = parseFloat(value) || 0;
-    setRunden(nums);
-  };
+    const nums = [...runden]
+    nums[i] = parseFloat(value) || 0
+    setRunden(nums)
+  }
 
   const toggleIgnore = (i: number) => {
-    const flags = [...ignore];
-    flags[i] = !flags[i];
-    setIgnore(flags);
-  };
+    const flags = [...ignore]
+    flags[i] = !flags[i]
+    setIgnore(flags)
+  }
 
   const addResult = () => {
-    const res = calculate(runden, ignore, zielzeit, name);
-    setHistory((h) => [...h, res]);
-  };
+    const res = calculate(runden, ignore, zielzeit, name)
+    setHistory(h => [...h, res])
+  }
 
   const exportXLS = () => {
-    const ws = XLSX.utils.json_to_sheet(history);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Ergebnisse');
-    XLSX.writeFile(wb, 'zeitschaetzlauf.xlsx');
-  };
+    const ws = XLSX.utils.json_to_sheet(history)
+    const wb = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(wb, ws, 'Ergebnisse')
+    XLSX.writeFile(wb, 'zeitschaetzlauf.xlsx')
+  }
 
   const exportPDF = () => {
-    const doc = new jsPDF();
+    const doc = new jsPDF()
     history.forEach((r, idx) => {
-      doc.text(`${idx + 1}. ${r.name} – Note ${r.note}`, 10, 10 + idx * 10);
-    });
-    doc.save('zeitschaetzlauf.pdf');
-  };
+      doc.text(`${idx + 1}. ${r.name} – Note ${r.note}`, 10, 10 + idx * 10)
+    })
+    doc.save('zeitschaetzlauf.pdf')
+  }
 
   return (
     <div className="space-y-6">
       {/* Eingabebereich */}
       <div className="flex flex-col md:flex-row md:space-x-4">
-        <div className="flex-1 flex flex-col">
-          <label className="font-semibold mb-1">Name</label>
+        <div className="flex-1">
+          <label className="font-semibold block mb-1">Name</label>
           <input
-            className="border p-2 rounded"
+            className="border p-2 rounded w-full"
             placeholder="Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
           />
         </div>
-        <div className="flex-1 flex flex-col">
-          <label className="font-semibold mb-1">Zielzeit (MM:SS)</label>
+        <div className="flex-1">
+          <label className="font-semibold block mb-1">Zielzeit (MM:SS)</label>
           <input
-            className="border p-2 rounded"
+            className="border p-2 rounded w-full"
             placeholder="22:00"
             value={zielzeit}
-            onChange={(e) => setZielzeit(e.target.value)}
+            onChange={e => setZielzeit(e.target.value)}
           />
         </div>
       </div>
@@ -71,7 +71,7 @@ export default function RundenzeitTabelle() {
       <div className="space-y-2">
         <p className="font-semibold">Rundenzeiten in Sekunden</p>
         {runden.map((_, i) => {
-          const label = i === 0 ? 'Erste halbe Runde 0,5' : `Runde ${i}`;
+          const label = i === 0 ? 'Erste halbe Runde 0,5' : `Runde ${i}`
           return (
             <div key={i} className="flex items-center gap-2">
               <label className="w-40">{label}</label>
@@ -79,7 +79,7 @@ export default function RundenzeitTabelle() {
                 type="number"
                 className="border p-2 rounded w-32"
                 placeholder="Sekunden"
-                onChange={(e) => handleRoundChange(i, e.target.value)}
+                onChange={e => handleRoundChange(i, e.target.value)}
               />
               <label className="flex items-center gap-1">
                 <input
@@ -90,11 +90,11 @@ export default function RundenzeitTabelle() {
                 <span>ignorieren</span>
               </label>
             </div>
-          );
+          )
         })}
       </div>
 
-      {/* Buttons */}
+      {/* Aktionen */}
       <div className="flex flex-wrap gap-2">
         <button onClick={addResult} className="bg-blue-600 text-white px-4 py-2 rounded">
           Auswerten
@@ -141,4 +141,5 @@ export default function RundenzeitTabelle() {
         </div>
       )}
     </div>
+  )
 }
