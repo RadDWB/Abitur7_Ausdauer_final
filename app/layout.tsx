@@ -13,8 +13,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Image
               src="/Zeit.png"
               alt="Eingabe-Interface Logo"
-              width={80}
-              height={80}
+              width={160}
+              height={160}
             />
           </div>
 
@@ -30,8 +30,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Image
               src="/qualis-logo.svg"
               alt="Qualis NRW"
-              width={80}
-              height={80}
+              width={160}
+              height={160}
             />
           </div>
         </header>
