@@ -20,8 +20,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
           {/* Titel */}
           <div className="flex-1 flex justify-center">
-            <h1 className="text-3xl font-extrabold text-[#004A9F]">
-              Belastungssteuerungslauf (als Zeitschätzlauf) 5000 m Abitur Sport LK NRW 
+            <h1 className="text-2xl font-extrabold text-[#004A9F]">
+              Belastungssteuerungslauf 
+              (als Zeitschätzlauf) 5000 m 
+              Abitur Sport LK NRW 
             </h1>
           </div>
 
