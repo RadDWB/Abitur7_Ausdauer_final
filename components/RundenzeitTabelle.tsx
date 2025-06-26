@@ -28,6 +28,10 @@ export default function RundenzeitTabelle() {
     setHistory(h => [...h, res])
   }
 
+  const removeAt = (i: number) => {
+    setHistory(h => h.filter((_, idx) => idx !== i))
+  }
+
   const exportXLS = () => {
     const ws = XLSX.utils.json_to_sheet(history)
     const wb = XLSX.utils.book_new()
@@ -121,6 +125,7 @@ export default function RundenzeitTabelle() {
                 <th className="p-2 bg-blue-100">Pkt. Tempok.</th>
                 <th className="p-2">Gesamtpkt.</th>
                 <th className="p-2 bg-green-100">Note</th>
+                <th className="p-2 text-center">Löschen</th>
               </tr>
             </thead>
             <tbody>
@@ -134,6 +139,15 @@ export default function RundenzeitTabelle() {
                   <td className="p-2 bg-blue-50">{r.konstanzPunkte}</td>
                   <td className="p-2">{r.gesamt}</td>
                   <td className="p-2 bg-green-50">{r.note}</td>
+                  <td className="p-2 text-center">
+                    <button
+                      onClick={() => removeAt(idx)}
+                      aria-label="Eintrag löschen"
+                      className="hover:text-red-600"
+                    >
+                      🗑️
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
