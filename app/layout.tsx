@@ -13,7 +13,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Image
               src="/Zeit.png"
               alt="Eingabe-Interface Logo"
-              
+              width={320}
               height={320}
             />
           </div>
@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           {/* Titel */}
           <div className="flex-1 flex justify-center">
             <h1 className="text-3xl font-extrabold text-[#004A9F]">
-              Belastungssteuerungslauf über 5000m (als Zeitschätzlauf) in der Abiturprüfung NRW
+              Belastungssteuerungslauf (als Zeitschätzlauf) 5000 m Abitur Sport LK NRW 
             </h1>
           </div>
 
@@ -30,8 +30,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Image
               src="/qualis-logo.svg"
               alt="Qualis NRW"
-              width={80}
-              height={80}
+              width={160}
+              height={160}
             />
           </div>
         </header>
@@ -42,3 +42,4 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </body>
     </html>
   )
+}
