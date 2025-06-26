@@ -7,13 +7,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="de">
       <body className="min-h-screen bg-gray-100">
-        <header className="border-4 border-[#004A9F] p-4 flex items-center justify-between rounded-md bg-white shadow-md">
+        <header className="border-2 border-[#004A9F] p-2 flex items-center justify-between rounded-md bg-white shadow-md">
           {/* Linkes Logo */}
           <div className="flex-1 flex justify-start">
             <Image
               src="/Zeit.png"
               alt="Eingabe-Interface Logo"
-              width={320}
+              
               height={320}
             />
           </div>
@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           {/* Titel */}
           <div className="flex-1 flex justify-center">
             <h1 className="text-3xl font-extrabold text-[#004A9F]">
-              Belastungssteuerungslauf 5000 m
+              Belastungssteuerungslauf über 5000m (als Zeitschätzlauf) in der Abiturprüfung NRW
             </h1>
           </div>
 
@@ -30,8 +30,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Image
               src="/qualis-logo.svg"
               alt="Qualis NRW"
-              width={160}
-              height={160}
+              width={80}
+              height={80}
             />
           </div>
         </header>
@@ -42,4 +42,3 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </body>
     </html>
   )
-}
