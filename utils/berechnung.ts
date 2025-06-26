@@ -107,10 +107,22 @@ export default function calculate(
 
   // 8. Note ableiten
   const note =
-    gesamt >= 14 ? '1' :
-    gesamt >= 12 ? '2' :
-    gesamt >= 10 ? '3' :
-    gesamt >= 8  ? '4' : '5';
+    gesamt = 15 ? '1+' :
+    gesamt = 14 ? '1' :
+    gesamt = 13 ? '1-' :
+    gesamt = 12 ? '2+' :
+    gesamt = 11 ? '2' :
+    gesamt = 10 ? '2-' :
+    gesamt = 9 ? '3+' :
+    gesamt = 8 ? '3' :
+    gesamt = 7 ? '3-' :
+    gesamt = 6 ? '4+' :
+    gesamt = 5 ? '4' :
+    gesamt = 4 ? '4-' :
+    gesamt = 3 ? '5+' :
+    gesamt = 2 ? '5' :
+    gesamt = 1 ? '5-' :
+    gesamt = 0 ? '6' :;
 
   return {
     name,
