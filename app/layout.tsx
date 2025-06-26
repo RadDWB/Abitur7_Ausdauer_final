@@ -13,8 +13,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Image
               src="/Zeit.png"
               alt="Eingabe-Interface Logo"
-              width={160}
-              height={160}
+              width={320}
+              height={320}
             />
           </div>
 
