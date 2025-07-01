@@ -1,6 +1,6 @@
 /**
  * =============================================================================
- * Zeitschätzlauf 5000 m – Berechnungs­modul
+ * Zeitschätzlauf 5000 m – Berechnungs­modul (aktualisiert)
  * =============================================================================
  *
  * Prüfungsformat (Kernpunkte):
@@ -72,63 +72,70 @@ export default function calculate(
   const istZeit = formatTime(totalSec);
 
   // 3. Prozentuale Abweichung
-  const abw = (Math.abs(zielSec - totalSec) / zielSec) * 100;
+  const abw = zielSec > 0
+    ? (Math.abs(zielSec - totalSec) / zielSec) * 100
+    : 0;
+  const abwProzent = abw.toFixed(2);
 
   // 4. Tempobereinigung:
-  //    Halbe Runde wird als volle (×2) behandelt, alle weiteren Runden normal
+  //    Halbe Runde (Index 0) wird als volle Runde (×2) behandelt
   const normiert = runden.map((t, i) => (i === 0 ? t * 2 : t));
-  //    nur voll-Runden können ignoriert werden
+  //    nur die Runden, die nicht ignoriert werden, zählen
   const valid = normiert.filter((_, i) => i === 0 || !ignore[i]);
 
   // 5. Mittelwert & Standardabweichung
-  const mean = valid.reduce((a, b) => a + b, 0) / valid.length;
-  const std = Math.sqrt(valid.reduce((a, b) => a + (b - mean) ** 2, 0) / valid.length);
+  const mean = valid.reduce((sum, x) => sum + x, 0) / valid.length;
+  const std = Math.sqrt(valid.reduce((sum, x) => sum + (x - mean) ** 2, 0) / valid.length);
+  const stdAbw = std.toFixed(2);
 
   // 6. Punkte für Zielzeit-Abweichung (1 %-Schritte)
   const zielPunkte =
-    abw <= 1  ? 10 :
-    abw <= 2  ? 9  :
-    abw <= 3  ? 8  :
-    abw <= 4  ? 7  :
-    abw <= 5  ? 6  :
-    abw <= 6  ? 5  :
-    abw <= 7  ? 4  :
-    abw <= 8  ? 3  :
-    abw <= 10 ? 2  : 1;
+    abw <= 1   ? 10 :
+    abw <= 2   ? 9  :
+    abw <= 3   ? 8  :
+    abw <= 4   ? 7  :
+    abw <= 5   ? 6  :
+    abw <= 6   ? 5  :
+    abw <= 7   ? 4  :
+    abw <= 8   ? 3  :
+    abw <= 10  ? 2  : 1;
 
   // 7. Punkte für Tempokonstanz (Stdabw-Schwellen)
   const konstanzPunkte =
-    std <= 3  ? 5 :
-    std <= 6  ? 4 :
-    std <= 9  ? 3 :
-    std <= 12 ? 2 : 1;
+    std <= 3   ? 5 :
+    std <= 6   ? 4 :
+    std <= 9   ? 3 :
+    std <= 12  ? 2 : 1;
 
+  // 8. Gesamtpunkte
   const gesamt = zielPunkte + konstanzPunkte;
 
-  // 8. Note ableiten
-  const note =
-    gesamt = 15 ? '1+' :
-    gesamt = 14 ? '1' :
-    gesamt = 13 ? '1-' :
-    gesamt = 12 ? '2+' :
-    gesamt = 11 ? '2' :
-    gesamt = 10 ? '2-' :
-    gesamt = 9 ? '3+' :
-    gesamt = 8 ? '3' :
-    gesamt = 7 ? '3-' :
-    gesamt = 6 ? '4+' :
-    gesamt = 5 ? '4' :
-    gesamt = 4 ? '4-' :
-    gesamt = 3 ? '5+' :
-    gesamt = 2 ? '5' :
-    gesamt = 1 ? '5-' :
-    gesamt = 0 ? '6' :;
+  // 9. Note ableiten (exaktes Mapping)
+  let note: string;
+  switch (gesamt) {
+    case 15: note = '1+'; break;
+    case 14: note = '1';  break;
+    case 13: note = '1-'; break;
+    case 12: note = '2+'; break;
+    case 11: note = '2';  break;
+    case 10: note = '2-'; break;
+    case  9: note = '3+'; break;
+    case  8: note = '3';  break;
+    case  7: note = '3-'; break;
+    case  6: note = '4+'; break;
+    case  5: note = '4';  break;
+    case  4: note = '4-'; break;
+    case  3: note = '5+'; break;
+    case  2: note = '5';  break;
+    case  1: note = '5-'; break;
+    default: note = '6';  break;
+  }
 
   return {
     name,
     istZeit,
-    abwProzent: abw.toFixed(2),
-    stdAbw: std.toFixed(2),
+    abwProzent,
+    stdAbw,
     zielPunkte,
     konstanzPunkte,
     gesamt,
