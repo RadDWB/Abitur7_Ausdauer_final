@@ -7,7 +7,7 @@
  * - Distanz: 5000 m (0,5 Runde + 12 volle Runden)
  * - Selbsteingestellte Zielzeit (MM:SS)
  * - Bewertung: Abweichung von Zielzeit (max. 10 Pkt), Tempokonstanz (Stdabw; max. 5 Pkt)
- * - Gesamt: max. 15 Punkte → Note 1–5
+ * - Gesamt: max. 15 Punkte → Note 1+–6
  *
  * Web-App:
  * - Erfassung: Name, Zielzeit, Rundenzeiten, Ignorier-Flags
@@ -30,7 +30,7 @@ export interface Result {
   zielPunkte: number;      // Punkte für Abweichung
   konstanzPunkte: number;  // Punkte für Tempokons­tanz
   gesamt: number;          // Gesamtpunkte
-  note: string;            // Note 1–5
+  note: string;            // Note 1+–6
 }
 
 /** Parsen der eingegebenen Zielzeit ("MM:SS" oder reine Sekundenzahl) */
