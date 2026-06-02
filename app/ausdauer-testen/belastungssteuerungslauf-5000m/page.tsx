@@ -317,18 +317,42 @@ export default function BelastungssteuerungslaufPage() {
 
             <div className="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-r-lg mt-4">
               <h5 className="font-semibold text-blue-900 mb-2">Warum unterschiedliche Schwellen für Frauen und Männer?</h5>
-              <p className="text-sm text-blue-800 mb-2">
-                Die unterschiedlichen Schwellen (43:00 vs. 40:00) sind <strong>keine Leistungsbewertung</strong>, sondern rein biomechanisch begründet:
+              <p className="text-sm text-blue-800 mb-3">
+                Wichtig: Die <strong>Belastungssteuerung</strong> wird geschlechtsunabhängig bewertet. Nur die
+                <strong> Mindestanforderung an die Ausdauerleistung</strong> ist geschlechtsabhängig begründbar – und zwar fachlich gut belegt:
               </p>
-              <ul className="list-disc list-inside space-y-1 text-sm text-blue-800">
-                <li>Bei gleicher <strong>absoluter Geschwindigkeit</strong> (z.B. 7 km/h) ist die <strong>physiologische Belastung</strong> für Frauen <em>höher</em> (wegen kleinerer Körpermasse, höhere relative Belastungsintensität)</li>
-                <li>Um die <strong>gleiche physiologische Qualität</strong> zu prüfen („läuft die Person noch im echten Lauf-Bereich?"), müssen unterschiedliche <strong>Geschwindigkeits-Schwellen</strong> gelten</li>
-                <li>Dies ist eine <strong>Angleichung der Anforderung</strong> auf gleiche Belastungs-Ebene – nicht diskriminierend, sondern fair</li>
+              <ul className="list-disc list-inside space-y-2 text-sm text-blue-800">
+                <li>
+                  <strong>VO₂max-Unterschiede:</strong> Bereits im Jugendalter haben Jungen im Mittel eine höhere maximale Sauerstoffaufnahme
+                  (Jungen ca. 45–65, Mädchen ca. 35–50 ml/kg/min – ein Unterschied von 15–25 %). Da die 5000m-Leistung eng an die
+                  aerobe Leistungsfähigkeit gekoppelt ist, ergeben sich zwangsläufig unterschiedliche Laufzeiten.
+                </li>
+                <li>
+                  <strong>Hämoglobin / Sauerstofftransport:</strong> Männer besitzen im Schnitt höhere Hämoglobinwerte → mehr
+                  Sauerstofftransport → bessere aerobe Energiebereitstellung. Einer der wichtigsten Gründe für Leistungsdifferenzen im Ausdauerbereich.
+                </li>
+                <li>
+                  <strong>Gleiche relative Belastung ≠ gleiche Geschwindigkeit:</strong> Ein Schüler mit 40:00 und eine Schülerin mit 43:00
+                  laufen physiologisch oft bei nahezu identischen ~70–75 % ihrer individuellen Leistungsfähigkeit – obwohl die Zeiten verschieden sind.
+                </li>
+                <li>
+                  <strong>Sportwissenschaftliche Präzedenz:</strong> Etablierte Verfahren (Cooper-, Beep-, Conconi-, PWC-Test,
+                  VO₂max- und DOSB-Normtabellen) arbeiten standardmäßig mit geschlechtsspezifischen Grenzwerten.
+                </li>
               </ul>
+              <p className="text-sm text-blue-900 font-medium mt-3 pt-3 border-t border-blue-200">
+                Die geschlechtsspezifischen Schwellen dienen <strong>nicht der Leistungsbewertung</strong>, sondern ausschließlich der
+                Sicherstellung einer <strong>vergleichbaren relativen Mindestbelastung</strong>. Eine <em>gemeinsame</em> Schwelle wäre
+                fachlich gerade <em>weniger</em> gerecht. Die eigentliche Bewertung der Belastungssteuerung erfolgt anschließend für alle
+                Lernenden nach identischen Kriterien.
+              </p>
             </div>
 
             <p className="font-semibold text-gray-900 mt-4 mb-2">Minimal verteidigbare Schwellen:</p>
-            <p className="text-sm text-gray-600"><strong className="text-[#004A9F]">Mädchen 43:00</strong> | <strong className="text-[#004A9F]">Jungen 40:00</strong></p>
+            <p className="text-sm text-gray-600">
+              <strong className="text-[#004A9F]">Mädchen 43:00</strong> | <strong className="text-[#004A9F]">Jungen 40:00</strong>
+              <span className="text-gray-500"> – ein Abstand von ca. 3 Minuten liegt im fachlich gut verteidigbaren Bereich (2–4 min auf 5000m).</span>
+            </p>
           </div>
 
           <hr className="my-4 border-gray-300" />
