@@ -4,11 +4,11 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { APP_VERSION } from './lib/version';
 
 export default function HomePage() {
   const [testinfoOpen, setTestinfoOpen] = useState(false);
   const router = useRouter();
-  const version = '1.0.0';
 
   const handleTestClick = () => {
     router.push('/ausdauer-testen/testauswahl');
@@ -115,7 +115,7 @@ export default function HomePage() {
       <div className="bg-white border-t border-gray-300">
         <div className="max-w-6xl mx-auto px-6 py-8 text-center">
           <p className="text-gray-700 font-semibold mb-2">Modul 6: Ausdauer testen (Abitur)</p>
-          <p className="text-gray-600 text-sm mb-1">Version {version}</p>
+          <p className="text-gray-600 text-sm mb-1">Version {APP_VERSION}</p>
           <p className="text-gray-600 text-sm">© 2026 Ralf Duwenbeck Straight Edge Media. All rights reserved.</p>
         </div>
       </div>
