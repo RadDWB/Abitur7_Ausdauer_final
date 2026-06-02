@@ -176,6 +176,82 @@ export default function Dauerlauf5000mInfoPage() {
       ),
     },
     {
+      id: 'sicherheit',
+      title: 'Sicherheit & Gesundheit',
+      icon: '🩺',
+      content: (
+        <div className="space-y-5 text-gray-700 text-sm">
+          <div className="bg-red-50 border-l-4 border-red-600 p-4 rounded">
+            <p className="font-bold text-red-900 mb-1">⚠️ Deine Gesundheit hat immer Vorrang vor der Note.</p>
+            <p className="text-red-800">Ein Ausdauerlauf ist eine intensive Belastung für Herz und Kreislauf. Höre auf deinen Körper – kein Notenpunkt rechtfertigt ein gesundheitliches Risiko.</p>
+          </div>
+
+          <div>
+            <h4 className="font-bold text-gray-900 mb-2">🛑 Warnsignale – sofort anhalten und Lauf beenden bei:</h4>
+            <ul className="list-disc list-inside space-y-1">
+              <li><strong>Brustschmerzen</strong> oder Druck/Enge in der Brust (auch ausstrahlend in Arm, Hals, Kiefer)</li>
+              <li><strong>Plötzliche, starke Atemnot</strong>, die nicht zur Belastung passt</li>
+              <li><strong>Herzrasen, Herzstolpern</strong> oder unregelmäßiger Herzschlag</li>
+              <li><strong>Schwindel, Benommenheit</strong>, „Schwarzwerden" vor den Augen, Sehstörungen</li>
+              <li><strong>Plötzliche starke Übelkeit</strong>, besonders mit Schwindel oder Kopfschmerzen</li>
+              <li><strong>Kalter Schweiß, Blässe</strong> oder Ohnmachtsgefühl</li>
+            </ul>
+            <div className="bg-red-100 border border-red-300 p-3 mt-3 rounded">
+              <p className="text-red-900"><strong>Notruf 112</strong> wählen bei: Bewusstlosigkeit, anhaltenden Brustschmerzen, Sturz mit Verwirrtheit oder wenn jemand nicht mehr ansprechbar ist.</p>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="font-bold text-gray-900 mb-2">📋 Verhalten bei Problemen – stufenweise reagieren:</h4>
+            <ol className="list-decimal list-inside space-y-1">
+              <li><strong>Tempo herausnehmen</strong> – oft reicht das schon (z. B. bei beginnendem Seitenstechen oder leichter Erschöpfung).</li>
+              <li><strong>Ins Gehen wechseln</strong> statt komplett zu stoppen – so bleibt der Kreislauf in Bewegung.</li>
+              <li><strong>Lehrkraft / Aufsicht informieren</strong>, wenn Beschwerden auftreten – nicht stillschweigend weitermachen.</li>
+            </ol>
+            <p className="mt-2 italic">„Langsamer werden ist besser als gehen, gehen ist besser als abbrechen – aber bei Warnsignalen ist Abbrechen die einzig richtige Entscheidung."</p>
+          </div>
+
+          <div>
+            <h4 className="font-bold text-gray-900 mb-2">🏥 Ärztliche Abklärung vor der Belastung</h4>
+            <p className="mb-2">Die Deutsche Gesellschaft für Sportmedizin und Prävention (DGSP) empfiehlt eine sportmedizinische Untersuchung, um unerkannte Herz-Kreislauf-Erkrankungen aufzudecken. Ein Check ist <strong>besonders sinnvoll bei</strong>:</p>
+            <ul className="list-disc list-inside space-y-1">
+              <li>Vorerkrankungen, v. a. Herz-Kreislauf-Erkrankungen oder Bluthochdruck</li>
+              <li>bekannten Herzproblemen, Herzrhythmusstörungen, Ohnmacht unter Belastung</li>
+              <li>Wiedereinstieg nach langer Trainingspause / bei Untrainierten</li>
+              <li>Fällen von plötzlichem Herztod in der Familie</li>
+              <li>Brustschmerz, Atemnot oder Schwindel bereits bei moderater Belastung</li>
+            </ul>
+          </div>
+
+          <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded">
+            <h4 className="font-bold text-amber-900 mb-2">🤒 Nie mit Infekt laufen – Myokarditis-Risiko</h4>
+            <p className="text-amber-900 mb-2">Eine Infektion (Erkältung, grippaler Infekt, COVID-19) kann den Herzmuskel mitbetreffen. Belastung mit verschlepptem Infekt kann eine <strong>Herzmuskelentzündung (Myokarditis)</strong> auslösen – eine der häufigsten Ursachen für den plötzlichen Herztod bei jungen Sportler*innen.</p>
+            <ul className="list-disc list-inside space-y-1 text-amber-900">
+              <li><strong>Asymptomatischer Infekt:</strong> ca. 2 Wochen keine intensive Belastung</li>
+              <li><strong>Mit Symptomen (Husten, Halsschmerzen, Fieber):</strong> 2–4 Wochen Pause</li>
+              <li><strong>Diagnostizierte Myokarditis:</strong> 3–6 Monate Sportpause, nur mit ärztlicher Freigabe zurück</li>
+            </ul>
+            <p className="text-amber-900 font-semibold mt-2">Grundregel: Nie mit Fieber oder akutem Infekt laufen. Im Zweifel ärztlich abklären lassen.</p>
+          </div>
+
+          <div>
+            <h4 className="font-bold text-gray-900 mb-2">✅ Allgemeine Sicherheitsempfehlungen</h4>
+            <ul className="list-disc list-inside space-y-1">
+              <li><strong>Aufwärmen:</strong> lockeres Einlaufen, Mobilisation, Steigerungen – bei Kälte länger</li>
+              <li><strong>Flüssigkeit:</strong> über den Tag verteilt trinken, nicht erst kurz vor dem Start</li>
+              <li><strong>Hitze:</strong> bei über 28 °C Test verschieben oder deutlich langsamer laufen</li>
+              <li><strong>Auslaufen:</strong> nach dem Lauf nicht abrupt stehen bleiben, sondern locker auslaufen</li>
+              <li><strong>Auf den Körper hören:</strong> Symptome ernst nehmen, nicht „durchbeißen"</li>
+            </ul>
+          </div>
+
+          <div className="bg-gray-100 border border-gray-300 p-3 rounded text-xs text-gray-600">
+            <p><strong>Medizinischer Hinweis:</strong> Diese Informationen ersetzen keine ärztliche Beratung. Bei Vorerkrankungen oder Beschwerden lasse deine Sporttauglichkeit vor der Prüfung ärztlich abklären. Quellen u. a.: DGSP, Deutsche Gesellschaft für Kardiologie, Deutsches Ärzteblatt.</p>
+          </div>
+        </div>
+      ),
+    },
+    {
       id: 'faq',
       title: 'Häufig gestellte Fragen',
       icon: '❓',
@@ -187,7 +263,7 @@ export default function Dauerlauf5000mInfoPage() {
           </div>
           <div>
             <p className="font-semibold text-gray-900">F: Darf ich zwischendurch gehen?</p>
-            <p className="mt-1">A: Nein, beim 5000m Dauerlauf ist kontinuierliches Laufen erforderlich. Kurze Gehphasen führen zu einer schlechteren Zeit und damit zu weniger Punkten.</p>
+            <p className="mt-1">A: Ja, Gehpausen sind erlaubt – du wirst nicht disqualifiziert oder aus dem Lauf genommen. Gewertet wird ausschließlich deine Gesamtzeit über die 5000m. Insbesondere wenn du Probleme mit der Atmung bekommst oder dir nicht gut geht, ist Gehen ausdrücklich besser, als dich zu überfordern oder abzubrechen. Beachte aber: Jede Gehphase kostet Zeit und verschlechtert dadurch dein Ergebnis und deine Notenpunkte. Ziel ist deshalb ein <strong>möglichst gleichmäßiges, kontinuierliches Tempo</strong>. Faustregel: <em>Langsamer werden ist besser als gehen, gehen ist besser als abbrechen.</em></p>
           </div>
           <div>
             <p className="font-semibold text-gray-900">F: Wie unterscheidet sich der Dauerlauf vom Belastungssteuerungslauf?</p>
