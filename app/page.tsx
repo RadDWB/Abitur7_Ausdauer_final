@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { APP_VERSION } from './lib/version';
 
 export default function HomePage() {
-  const [testinfoOpen, setTestinfoOpen] = useState(false);
+  const [testinfoOpen, setTestinfoOpen] = useState(true);
   const [testauswahlOpen, setTestauswahlOpen] = useState(false);
   const router = useRouter();
 
