@@ -80,15 +80,32 @@ export default function HomePage() {
             </button>
 
             {testinfoOpen && (
-              <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
-                <h3 className="font-semibold text-blue-900 mb-4">Verfügbare Tests:</h3>
-                <ul className="space-y-2 text-blue-800">
-                  <li>• <strong>Cooper-Test</strong> - 12-Minuten-Lauf</li>
-                  <li>• <strong>Ausdauer-Testlauf</strong> - Standardisierte Laufstrecke</li>
-                  <li>• <strong>Weitere Tests</strong> - Je nach Lehrplan</li>
-                </ul>
-                <p className="text-blue-700 mt-4 text-sm">
-                  Erfahre mehr über die wissenschaftlichen Grundlagen und Durchführungsrichtlinien.
+              <div className="bg-blue-50 p-6 rounded-lg border border-blue-200 space-y-4">
+                <div>
+                  <h3 className="font-semibold text-blue-900 mb-3">Verfügbare Tests:</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button
+                      onClick={() => {
+                        setTestinfoOpen(false);
+                        handleSelectTest('5000m-zeitschaetzlauf');
+                      }}
+                      className="border-2 border-blue-600 hover:bg-blue-100 text-blue-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
+                    >
+                      ⏱️ 5000m Zeitschätzlauf
+                    </button>
+                    <button
+                      onClick={() => {
+                        setTestinfoOpen(false);
+                        handleSelectTest('5000m-lauf');
+                      }}
+                      className="border-2 border-blue-600 hover:bg-blue-100 text-blue-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
+                    >
+                      🏃 5000m Lauf
+                    </button>
+                  </div>
+                </div>
+                <p className="text-blue-700 text-sm">
+                  Wähle einen Test, um die wissenschaftlichen Grundlagen zu erfahren und Schüler*innen-Ergebnisse zu dokumentieren.
                 </p>
               </div>
             )}
