@@ -31,8 +31,14 @@ export default function HomePage() {
             <span className="font-semibold text-gray-700 text-sm sm:text-base">AUSDAUER-LAB</span>
             <span className="hidden sm:inline font-semibold text-gray-500">M05 - Ausdauertests</span>
           </div>
-          <nav className="flex items-center gap-2 sm:gap-6">
+          <nav className="flex items-center gap-3 sm:gap-6">
             <Link href="/" className="text-sm text-gray-600 hover:text-gray-900 hidden sm:inline">Zur Homepage</Link>
+            <Link
+              href="/ausdauer-testen/5000m-dauerlauf#sicherheit"
+              className="text-sm font-semibold text-red-600 hover:text-red-700 flex items-center gap-1"
+            >
+              🩺 <span className="hidden xs:inline sm:inline">Sicherheit &amp; Gesundheit</span>
+            </Link>
           </nav>
         </div>
       </nav>

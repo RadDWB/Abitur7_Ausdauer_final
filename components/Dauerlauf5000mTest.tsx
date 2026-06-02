@@ -4,6 +4,9 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 import * as XLSX from 'xlsx'
 import jsPDF from 'jspdf'
+import Dauerlauf5000mSolo from './Dauerlauf5000mSolo'
+
+type Mode = 'choose' | 'kurs' | 'solo'
 
 // ─── Normwerte (Sekunden) ─────────────────────────────────────
 const NORM_W: Record<number, number> = {
@@ -111,6 +114,7 @@ function NormwerteTabelle() {
 
 // ─── Main Component ───────────────────────────────────────────
 export default function Dauerlauf5000mTest() {
+  const [mode, setMode] = useState<Mode>('choose')
   const [phase, setPhase] = useState<Phase>('setup')
   const [className, setClassName] = useState('')
   const [students, setStudents] = useState<Student[]>([])
@@ -215,6 +219,58 @@ export default function Dauerlauf5000mTest() {
   const qrData = typeof window !== 'undefined'
     ? encodeURIComponent(window.location.href)
     : ''
+
+  // ── Moduswahl: Einzel- oder Kursmodus ─────────────────────
+  if (mode === 'choose') {
+    return (
+      <div className="space-y-6">
+        <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+          <h2 className="text-2xl font-bold text-blue-700 mb-2">5000m Dauerlauf</h2>
+          <p className="text-gray-600 mb-6">Wie möchtest du den Test durchführen?</p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <button
+              onClick={() => setMode('solo')}
+              className="text-left border-2 border-blue-600 hover:bg-blue-50 rounded-xl p-5 transition-colors active:scale-95"
+            >
+              <div className="text-3xl mb-2">📱</div>
+              <h3 className="text-lg font-bold text-blue-700 mb-1">Einzelmodus (selbst)</h3>
+              <p className="text-sm text-gray-600">
+                Ich laufe alleine und stoppe selbst mit dem Handy. Rundenzeiten alle 400m,
+                am Ende umfassende Auswertung mit Diagramm – per QR-Code an die Lehrkraft übergebbar.
+              </p>
+            </button>
+            <button
+              onClick={() => setMode('kurs')}
+              className="text-left border-2 border-gray-300 hover:bg-gray-50 rounded-xl p-5 transition-colors active:scale-95"
+            >
+              <div className="text-3xl mb-2">👥</div>
+              <h3 className="text-lg font-bold text-gray-800 mb-1">Kursmodus (Lehrkraft)</h3>
+              <p className="text-sm text-gray-600">
+                Mehrere Schüler*innen werden erfasst. Eine Stoppuhr, Zieleinlauf per Tippen,
+                Ergebnisliste mit Export (XLS/PDF).
+              </p>
+            </button>
+          </div>
+        </div>
+        <NormwerteTabelle />
+      </div>
+    )
+  }
+
+  // ── Einzelmodus: eigene Komponente ────────────────────────
+  if (mode === 'solo') {
+    return (
+      <div className="space-y-4">
+        <button
+          onClick={() => setMode('choose')}
+          className="text-blue-600 hover:text-blue-700 font-semibold text-sm"
+        >
+          ← Modus wechseln
+        </button>
+        <Dauerlauf5000mSolo />
+      </div>
+    )
+  }
 
   // ── PHASE: Setup ──────────────────────────────────────────
   if (phase === 'setup') {
