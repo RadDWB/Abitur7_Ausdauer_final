@@ -12,7 +12,7 @@ interface AccordionSection {
 
 export default function BelastungssteuerungslaufPage() {
   const [openAccordions, setOpenAccordions] = useState<Record<string, boolean>>({
-    definition: true,
+    overview: true,
   });
 
   const toggleAccordion = (id: string) => {
@@ -24,70 +24,75 @@ export default function BelastungssteuerungslaufPage() {
 
   const sections: AccordionSection[] = [
     {
-      id: 'definition',
-      title: 'Was ist das?',
-      icon: 'ℹ️',
+      id: 'overview',
+      title: '📖 Überblick: Was & Wofür',
+      icon: '📚',
       content: (
-        <div className="space-y-4 text-gray-700">
-          <p>
-            Der <strong>Belastungssteuerungslauf 5000m</strong> ist ein standardisiertes Ausdauer-Prüfungsformat im schulischen Sportunterricht. Es handelt sich um einen <strong>selbstgesteuerten Langstreckenlauf</strong>, bei dem die Schüler*innen eine zu Beginn der Prüfung selbst festgelegte Zielzeit über eine Distanz von genau 5000 Metern einzuhalten versuchen.
-          </p>
+        <div className="space-y-6 text-gray-700">
+          {/* WAS IST DAS? */}
+          <div>
+            <h4 className="text-lg font-bold text-[#004A9F] mb-3">Was ist der Belastungssteuerungslauf?</h4>
+            <p className="mb-3">
+              Der <strong>Belastungssteuerungslauf 5000m</strong> ist ein standardisiertes Ausdauer-Prüfungsformat im schulischen Sportunterricht. Es handelt sich um einen <strong>selbstgesteuerten Langstreckenlauf</strong>, bei dem die Schüler*innen eine zu Beginn der Prüfung selbst festgelegte Zielzeit über eine Distanz von genau 5000 Metern einzuhalten versuchen.
+            </p>
 
-          <h4 className="font-bold text-gray-900 mt-4">Besonderheiten:</h4>
-          <ul className="list-disc list-inside space-y-2">
-            <li><strong>Selbstbestimmte Zielzeit:</strong> Du legst die angestrebte Zeit selbst fest</li>
-            <li><strong>Feste Distanz:</strong> Exakt 5000 Meter (0,5 Runde + 12 volle Runden)</li>
-            <li><strong>Tempokontrolle:</strong> Der Test misst nicht nur die Gesamtleistung, sondern auch die Fähigkeit zur Belastungssteuerung</li>
-            <li><strong>Duale Bewertung:</strong> Abweichung von Zielzeit + Tempokonstanz</li>
-          </ul>
-
-          <p className="text-sm text-gray-600 mt-4">
-            <strong>Wissenschaftlicher Hintergrund:</strong> Der Test basiert auf modernen sportwissenschaftlichen Erkenntnissen über die <strong>Belastungssteuerung im Sport</strong> – die Fähigkeit, Trainingsintensität gezielt zu regulieren.
-          </p>
-        </div>
-      )
-    },
-    {
-      id: 'zweck',
-      title: 'Wofür wird der Test verwendet?',
-      icon: '🎯',
-      content: (
-        <div className="space-y-4 text-gray-700">
-          <h4 className="font-bold text-gray-900">Primäre Ziele im Schulsport:</h4>
-
-          <div className="space-y-3">
-            <div>
-              <h5 className="font-semibold text-gray-900">1. Ausdauerleistungsfähigkeit messen</h5>
-              <p className="text-sm">Der 5000m-Lauf erfasst die aerob-anaerobe Leistungsfähigkeit – eine Grundvoraussetzung für Gesundheit und sportliche Leistung.</p>
+            <div className="bg-blue-50 border-l-4 border-[#004A9F] p-4 rounded-r-lg mb-4">
+              <h5 className="font-bold text-[#004A9F] mb-2">Besonderheiten:</h5>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Selbstbestimmte Zielzeit:</strong> Du legst die angestrebte Zeit selbst fest</li>
+                <li><strong>Feste Distanz:</strong> Exakt 5000 Meter (0,5 Runde + 12 volle Runden)</li>
+                <li><strong>Tempokontrolle:</strong> Der Test misst nicht nur die Gesamtleistung, sondern auch die Fähigkeit zur Belastungssteuerung</li>
+                <li><strong>Duale Bewertung:</strong> Abweichung von Zielzeit + Tempokonstanz</li>
+              </ul>
             </div>
 
-            <div>
-              <h5 className="font-semibold text-gray-900">2. Tempokontroll-Fähigkeit diagnostizieren</h5>
-              <p className="text-sm">Ein zentrales Trainingsprinzip: Der Test bewertet nicht nur "wie schnell?", sondern "wie gleichmäßig?" – das ist realistisches Trainingsverhalten.</p>
-            </div>
-
-            <div>
-              <h5 className="font-semibold text-gray-900">3. Motorische Lernziele</h5>
-              <p className="text-sm">Du lernst Selbsteinschätzung, realistische Zieletzung, und Belastungsregulation.</p>
-            </div>
-
-            <div>
-              <h5 className="font-semibold text-gray-900">4. Individuelle Leistungserbringung</h5>
-              <p className="text-sm">Durch die freie Zielzeitwahl können Anfänger und Leistungssportler am gleichen Test teilnehmen und angemessen bewertet werden.</p>
-              <p className="text-sm mt-2"><strong>Genderunabhängig überprüfbar:</strong> Jungen wie Mädchen zeigen hier geschlechterunabhängig die Fähigkeit, die Belastung zu steuern. Der Test misst nicht absolute Schnelligkeit, sondern die Fähigkeit zur Tempokontrolle und Belastungsregulation – Kompetenzen, die geschlechtsunabhängig sind.</p>
-            </div>
+            <p className="text-sm text-gray-600">
+              <strong>Wissenschaftlicher Hintergrund:</strong> Der Test basiert auf modernen sportwissenschaftlichen Erkenntnissen über die <strong>Belastungssteuerung im Sport</strong> – die Fähigkeit, Trainingsintensität gezielt zu regulieren.
+            </p>
           </div>
 
-          <p className="text-sm text-gray-600 mt-4">
-            <strong>Energieverteilung beim 5000m-Lauf:</strong> 80-90% aerobe Energiebereitstellung (Sauerstoffnutzung), 10-20% anaerobe (Laktat-Produktion). Dies entspricht einem Training in der aerob-anaeroben Schwelle – hocheffektiv für Entwicklung!
-          </p>
+          <hr className="my-4 border-gray-300" />
+
+          {/* WOFÜR WIRD DER TEST VERWENDET? */}
+          <div>
+            <h4 className="text-lg font-bold text-[#004A9F] mb-3">Wofür wird der Test verwendet?</h4>
+
+            <div className="space-y-3">
+              <div className="bg-white border-l-4 border-green-500 p-4 rounded-r-lg hover:shadow-sm transition-shadow">
+                <h5 className="font-semibold text-gray-900">1. Ausdauerleistungsfähigkeit messen</h5>
+                <p className="text-sm text-gray-600">Der 5000m-Lauf erfasst die aerob-anaerobe Leistungsfähigkeit – eine Grundvoraussetzung für Gesundheit und sportliche Leistung.</p>
+              </div>
+
+              <div className="bg-white border-l-4 border-blue-500 p-4 rounded-r-lg hover:shadow-sm transition-shadow">
+                <h5 className="font-semibold text-gray-900">2. Tempokontroll-Fähigkeit diagnostizieren</h5>
+                <p className="text-sm text-gray-600">Ein zentrales Trainingsprinzip: Der Test bewertet nicht nur "wie schnell?", sondern "wie gleichmäßig?" – das ist realistisches Trainingsverhalten.</p>
+              </div>
+
+              <div className="bg-white border-l-4 border-purple-500 p-4 rounded-r-lg hover:shadow-sm transition-shadow">
+                <h5 className="font-semibold text-gray-900">3. Motorische Lernziele</h5>
+                <p className="text-sm text-gray-600">Du lernst Selbsteinschätzung, realistische Zieletzung, und Belastungsregulation.</p>
+              </div>
+
+              <div className="bg-white border-l-4 border-orange-500 p-4 rounded-r-lg hover:shadow-sm transition-shadow">
+                <h5 className="font-semibold text-gray-900">4. Individuelle Leistungserbringung & Geschlechtsunabhängigkeit</h5>
+                <p className="text-sm text-gray-600">Durch die freie Zielzeitwahl können Anfänger und Leistungssportler am gleichen Test teilnehmen und angemessen bewertet werden.</p>
+                <p className="text-sm text-gray-600 mt-2"><strong>Genderunabhängig überprüfbar:</strong> Jungen wie Mädchen zeigen hier geschlechterunabhängig die Fähigkeit, die Belastung zu steuern. Der Test misst nicht absolute Schnelligkeit, sondern die Fähigkeit zur Tempokontrolle und Belastungsregulation – Kompetenzen, die geschlechtsunabhängig sind.</p>
+              </div>
+            </div>
+
+            <div className="bg-amber-50 border-l-4 border-amber-600 p-4 rounded-r-lg mt-4">
+              <p className="text-sm text-gray-700">
+                <strong>⚡ Energieverteilung beim 5000m-Lauf:</strong> 80-90% aerobe Energiebereitstellung (Sauerstoffnutzung), 10-20% anaerobe (Laktat-Produktion). Dies entspricht einem Training in der aerob-anaeroben Schwelle – hocheffektiv für Entwicklung!
+              </p>
+            </div>
+          </div>
         </div>
       )
     },
     {
       id: 'ablauf',
-      title: 'Wie läuft der Test ab?',
-      icon: '🏃',
+      title: '⚙️ Wie läuft der Test ab?',
+      icon: '⚙️',
       content: (
         <div className="space-y-4 text-gray-700">
           <h4 className="font-bold text-gray-900">Vorbereitung (15-30 Min vorher):</h4>
@@ -115,8 +120,8 @@ export default function BelastungssteuerungslaufPage() {
     },
     {
       id: 'schueler-info',
-      title: 'Schüler Information',
-      icon: '👤',
+      title: '👨 Schüler Information',
+      icon: '👨',
       content: (
         <div className="space-y-4 text-gray-700">
           <h4 className="font-bold text-gray-900">Anforderungen:</h4>
@@ -174,8 +179,8 @@ export default function BelastungssteuerungslaufPage() {
     },
     {
       id: 'lehrer-info',
-      title: 'Lehrer Information',
-      icon: '👨‍🏫',
+      title: '📋 Lehrer Information',
+      icon: '📋',
       content: (
         <div className="space-y-4 text-gray-700">
           <h4 className="font-bold text-gray-900">Sicherheitsaspekte:</h4>
@@ -336,7 +341,7 @@ export default function BelastungssteuerungslaufPage() {
     },
     {
       id: 'faq',
-      title: 'Häufig gestellte Fragen',
+      title: '❓ Häufig gestellte Fragen',
       icon: '❓',
       content: (
         <div className="space-y-4 text-gray-700 text-sm">
@@ -407,30 +412,37 @@ export default function BelastungssteuerungslaufPage() {
 
       {/* Accordions */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        <div className="space-y-3">
+        <div className="space-y-4">
           {sections.map((section) => (
-            <div key={section.id} className="border border-gray-200 rounded-lg overflow-hidden">
+            <div
+              key={section.id}
+              className={`rounded-xl border-2 transition-all overflow-hidden shadow-sm ${
+                openAccordions[section.id]
+                  ? 'border-[#004A9F] bg-white shadow-md'
+                  : 'border-gray-200 bg-white hover:border-gray-300'
+              }`}
+            >
               {/* Accordion Header */}
               <button
                 onClick={() => toggleAccordion(section.id)}
-                className={`w-full px-6 py-4 flex items-center justify-between font-semibold transition-colors ${
+                className={`w-full px-6 py-5 flex items-center justify-between font-semibold transition-all ${
                   openAccordions[section.id]
-                    ? 'bg-blue-700 text-white'
-                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                    ? 'bg-gradient-to-r from-[#004A9F] to-[#003a7a] text-white'
+                    : 'bg-gradient-to-r from-gray-50 to-gray-100 text-gray-900 hover:from-gray-100 hover:to-gray-150'
                 }`}
               >
-                <span className="flex items-center gap-3">
+                <span className="flex items-center gap-3 text-lg">
                   <span className="text-2xl">{section.icon}</span>
-                  {section.title}
+                  <span>{section.title}</span>
                 </span>
-                <span className={`transform transition-transform ${openAccordions[section.id] ? 'rotate-180' : ''}`}>
+                <span className={`transform transition-transform duration-200 text-xl ${openAccordions[section.id] ? 'rotate-180' : ''}`}>
                   ▼
                 </span>
               </button>
 
               {/* Accordion Content */}
               {openAccordions[section.id] && (
-                <div className="px-6 py-6 bg-white border-t border-gray-200">
+                <div className="px-6 py-8 bg-white border-t-2 border-[#004A9F] animate-in fade-in duration-200">
                   {section.content}
                 </div>
               )}
