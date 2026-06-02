@@ -24,13 +24,13 @@ export default function HomePage() {
       {/* Top Navigation Bar */}
       <nav className="bg-gray-100 border-b border-gray-300">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <a href="https://lp-2-tan.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <div className="w-6 h-6 rounded-full bg-[#004A9F] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
               🏃
             </div>
             <span className="font-semibold text-gray-700 text-sm sm:text-base">AUSDAUER-LAB</span>
             <span className="hidden sm:inline font-semibold text-gray-500">M05 - Ausdauertests</span>
-          </div>
+          </a>
           <nav className="flex items-center gap-3 sm:gap-6">
             <Link href="/" className="text-sm text-gray-600 hover:text-gray-900 hidden sm:inline">Zur Homepage</Link>
             <Link
