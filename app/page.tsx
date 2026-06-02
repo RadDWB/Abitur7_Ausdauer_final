@@ -53,9 +53,9 @@ export default function HomePage() {
               <Image
                 src="/AusdauertestenLK.png"
                 alt="Ausdauer testen Logo"
-                width={130}
-                height={130}
-                className="rounded-full"
+                width={260}
+                height={260}
+                className="rounded-full w-[180px] h-[180px] sm:w-[260px] sm:h-[260px]"
               />
             </div>
 
