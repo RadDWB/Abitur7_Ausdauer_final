@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 interface AccordionSection {
@@ -23,6 +23,17 @@ export default function Dauerlauf5000mInfoPage() {
 
   const toggleAccordion = (id: string) =>
     setOpenAccordions(prev => ({ ...prev, [id]: !prev[id] }));
+
+  // Öffnet das passende Akkordeon, wenn die Seite mit #anker aufgerufen wird
+  useEffect(() => {
+    const id = window.location.hash.replace('#', '');
+    if (id) {
+      setOpenAccordions(prev => ({ ...prev, [id]: true }));
+      setTimeout(() => {
+        document.getElementById(`acc-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }, []);
 
   const sections: AccordionSection[] = [
     {
@@ -310,7 +321,7 @@ export default function Dauerlauf5000mInfoPage() {
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div className="space-y-3">
           {sections.map(section => (
-            <div key={section.id} className="border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+            <div key={section.id} id={`acc-${section.id}`} className="border border-gray-200 rounded-lg overflow-hidden shadow-sm scroll-mt-4">
               <button
                 onClick={() => toggleAccordion(section.id)}
                 className={`w-full px-6 py-4 flex items-center justify-between font-semibold transition-colors ${
