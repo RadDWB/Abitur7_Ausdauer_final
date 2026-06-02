@@ -8,10 +8,11 @@ import { APP_VERSION } from './lib/version';
 
 export default function HomePage() {
   const [testinfoOpen, setTestinfoOpen] = useState(false);
+  const [testauswahlOpen, setTestauswahlOpen] = useState(false);
   const router = useRouter();
 
-  const handleTestClick = () => {
-    router.push('/ausdauer-testen/testauswahl');
+  const handleSelectTest = (testType: string) => {
+    router.push(`/ausdauer-testen/testauswahl?test=${testType}`);
   };
 
   return (
@@ -94,7 +95,7 @@ export default function HomePage() {
 
             {/* Ausdauer testen */}
             <button
-              onClick={handleTestClick}
+              onClick={() => setTestauswahlOpen(true)}
               className="w-full bg-blue-700 hover:bg-blue-800 text-white py-4 px-6 rounded-lg flex items-center justify-between text-lg font-semibold transition-colors"
             >
               <span className="flex items-center gap-3">
@@ -110,6 +111,86 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+
+      {/* Testauswahl Modal */}
+      {testauswahlOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg shadow-2xl max-w-2xl w-full p-8 border border-gray-200">
+            {/* Close Button */}
+            <div className="flex justify-end mb-4">
+              <button
+                onClick={() => setTestauswahlOpen(false)}
+                className="text-gray-500 hover:text-gray-700 text-2xl"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Modal Title */}
+            <div className="flex items-center gap-3 mb-2">
+              <span className="text-2xl">ℹ️</span>
+              <h2 className="text-3xl font-bold text-blue-700">Testauswahl</h2>
+            </div>
+            <p className="text-gray-600 mb-8">
+              Wähle einen Test aus und stelle ggf. Parameter ein
+            </p>
+
+            {/* Schritt 1 */}
+            <h3 className="text-xl font-bold text-gray-900 mb-6">Schritt 1: Test wählen</h3>
+
+            {/* Test Grid 2x2 */}
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              {/* Coopertest */}
+              <button
+                onClick={() => {
+                  setTestauswahlOpen(false);
+                  handleSelectTest('coopertest');
+                }}
+                className="border-2 border-blue-600 hover:bg-blue-50 text-blue-700 py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
+              >
+                <span>🏃</span>
+                Coopertest
+              </button>
+
+              {/* 6-Minuten-Lauf */}
+              <button
+                onClick={() => {
+                  setTestauswahlOpen(false);
+                  handleSelectTest('6-minuten-lauf');
+                }}
+                className="border-2 border-blue-600 hover:bg-blue-50 text-blue-700 py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
+              >
+                <span>🏃</span>
+                6-Minuten-Lauf
+              </button>
+
+              {/* Beeptest */}
+              <button
+                onClick={() => {
+                  setTestauswahlOpen(false);
+                  handleSelectTest('beeptest');
+                }}
+                className="border-2 border-blue-600 hover:bg-blue-50 text-blue-700 py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
+              >
+                <span>📢</span>
+                Beeptest
+              </button>
+
+              {/* 30-Minuten-Lauf */}
+              <button
+                onClick={() => {
+                  setTestauswahlOpen(false);
+                  handleSelectTest('30-minuten-lauf');
+                }}
+                className="border-2 border-blue-600 hover:bg-blue-50 text-blue-700 py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
+              >
+                <span>🏃</span>
+                30-Minuten-Lauf
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer - wie LP2 */}
       <div className="bg-white border-t border-gray-300">
