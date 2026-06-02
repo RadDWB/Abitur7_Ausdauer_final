@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import BewertungErklaerung from '../../../components/BewertungErklaerung';
 
 interface AccordionSection {
   id: string;
@@ -307,62 +308,8 @@ export default function BelastungssteuerungslaufPage() {
             </tbody>
           </table>
 
-          <h4 className="font-bold text-gray-900">Bewertungskriterium 1: Zielzeit-Genauigkeit (max. 10 Punkte)</h4>
-          <table className="w-full text-sm border-collapse mb-4">
-            <tbody>
-              <tr className="border-b">
-                <td className="p-2">≤1%</td>
-                <td className="p-2 font-semibold">10 Punkte</td>
-              </tr>
-              <tr className="border-b">
-                <td className="p-2">≤2%</td>
-                <td className="p-2 font-semibold">9 Punkte</td>
-              </tr>
-              <tr className="border-b">
-                <td className="p-2">≤3%</td>
-                <td className="p-2 font-semibold">8 Punkte</td>
-              </tr>
-              <tr className="border-b">
-                <td className="p-2">≤5%</td>
-                <td className="p-2 font-semibold">6 Punkte</td>
-              </tr>
-              <tr>
-                <td className="p-2">&gt;10%</td>
-                <td className="p-2 font-semibold">1 Punkt</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h4 className="font-bold text-gray-900">Bewertungskriterium 2: Tempokonstanz (max. 5 Punkte)</h4>
-          <table className="w-full text-sm border-collapse mb-4">
-            <tbody>
-              <tr className="border-b">
-                <td className="p-2">≤3 Sekunden</td>
-                <td className="p-2 font-semibold">5 Punkte</td>
-                <td className="p-2 text-xs">Perfekt</td>
-              </tr>
-              <tr className="border-b">
-                <td className="p-2">3-6 Sekunden</td>
-                <td className="p-2 font-semibold">4 Punkte</td>
-                <td className="p-2 text-xs">Gut</td>
-              </tr>
-              <tr className="border-b">
-                <td className="p-2">6-9 Sekunden</td>
-                <td className="p-2 font-semibold">3 Punkte</td>
-                <td className="p-2 text-xs">Befriedigend</td>
-              </tr>
-              <tr>
-                <td className="p-2">&gt;12 Sekunden</td>
-                <td className="p-2 font-semibold">1 Punkt</td>
-                <td className="p-2 text-xs">Schwach</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h4 className="font-bold text-gray-900">Gesamtnote:</h4>
-          <p className="text-sm mb-2"><strong>Zielzeit-Punkte (0-10) + Konstanz-Punkte (0-5) = Gesamtpunkte (0-15)</strong></p>
-          <div className="bg-gray-50 p-3 rounded text-sm">
-            <p>15 = 1+ | 14 = 1 | 13 = 1- | 12 = 2+ | 11 = 2 | 10 = 2- | 9 = 3+</p>
+          <div className="mt-2">
+            <BewertungErklaerung defaultOpen />
           </div>
 
           <div className="bg-blue-50 border-l-4 border-blue-600 p-3 mt-4">

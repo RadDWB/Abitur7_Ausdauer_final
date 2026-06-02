@@ -4,6 +4,7 @@ import calculate, { Result } from '../utils/berechnung'
 import { fmtMs, fmtMsShort, buildBslShareUrl, type BslShareData } from '../app/lib/dauerlauf'
 import * as XLSX from 'xlsx'
 import jsPDF from 'jspdf'
+import BewertungErklaerung from './BewertungErklaerung'
 
 const LAP_COUNT = 13 // Index 0 = halbe Runde (200m), 1–12 = volle Runden (400m)
 
@@ -383,6 +384,9 @@ export default function RundenzeitTabelle() {
           </table>
         </div>
       )}
+
+      {/* ─── Erklärung der Bewertungslogik ─── */}
+      {history.length > 0 && <BewertungErklaerung />}
 
       {/* ─── QR-Übergabe ─── */}
       {shareUrl && (
