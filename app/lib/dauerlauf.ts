@@ -55,20 +55,23 @@ export function genId(): string {
 }
 
 // ─── 5000m auf 400m-Bahn ──────────────────────────────────────
-// 12 volle Runden à 400m (= 4800m) + 1 Schlussabschnitt à 200m = 5000m
-export const FULL_LAPS = 12
-export const LAP_DISTANCE = 400        // Meter pro Runde
-export const FINAL_DISTANCE = 200      // Meter Schlussabschnitt
+// Start am 200m-Start: zuerst 1 halbe Runde à 200m (erste Ziellinien-
+// Überquerung), danach 12 volle Runden à 400m (= 4800m) = 5000m.
+export const FULL_LAPS = 12            // Anzahl voller 400m-Runden
+export const TOTAL_LAPS = 13           // halbe Runde + 12 volle Runden
+export const LAP_DISTANCE = 400        // Meter pro voller Runde
+export const HALF_DISTANCE = 200       // Meter erste halbe Runde
 export const TOTAL_DISTANCE = 5000     // Meter gesamt
 
-// Liefert die Meterzahl eines Rundenabschnitts (0-basiert)
+// Liefert die Meterzahl eines Abschnitts (0-basiert).
+// Index 0 = erste halbe Runde (200m), danach volle Runden (400m).
 export function lapDistance(index: number): number {
-  return index < FULL_LAPS ? LAP_DISTANCE : FINAL_DISTANCE
+  return index === 0 ? HALF_DISTANCE : LAP_DISTANCE
 }
 
-// Label für einen Rundenabschnitt (0-basiert)
+// Label für einen Abschnitt (0-basiert).
 export function lapLabel(index: number): string {
-  return index < FULL_LAPS ? `Runde ${index + 1}` : 'Schluss (200m)'
+  return index === 0 ? '½ Runde (200m)' : `Runde ${index}`
 }
 
 // ─── Auswertung der Rundenzeiten ──────────────────────────────
@@ -82,21 +85,25 @@ export interface LapAnalysis {
 }
 
 // Berechnet Kennzahlen aus Rundendauern (ms je Abschnitt).
+// Index 0 (halbe Runde, 200m) wird bei Ø/schnellste/langsamste
+// ausgenommen — verglichen werden nur volle 400m-Runden (Index ≥ 1).
 export function analyzeLaps(laps: number[]): LapAnalysis {
   const totalMs = laps.reduce((a, b) => a + b, 0)
-  // Nur volle 400m-Runden für Ø/schnellste/langsamste betrachten
-  const fullLaps = laps.slice(0, FULL_LAPS)
-  let fastestIdx = 0
-  let slowestIdx = 0
-  fullLaps.forEach((ms, i) => {
-    if (ms < fullLaps[fastestIdx]) fastestIdx = i
-    if (ms > fullLaps[slowestIdx]) slowestIdx = i
+  // Indizes der vollen 400m-Runden (ohne halbe Anfangsrunde)
+  const fullIdx = laps.map((_, i) => i).filter(i => i >= 1)
+  let fastestIdx = fullIdx.length ? fullIdx[0] : 0
+  let slowestIdx = fullIdx.length ? fullIdx[0] : 0
+  fullIdx.forEach(i => {
+    if (laps[i] < laps[fastestIdx]) fastestIdx = i
+    if (laps[i] > laps[slowestIdx]) slowestIdx = i
   })
-  const avgFullLapMs = fullLaps.length
-    ? fullLaps.reduce((a, b) => a + b, 0) / fullLaps.length
+  const avgFullLapMs = fullIdx.length
+    ? fullIdx.reduce((a, i) => a + laps[i], 0) / fullIdx.length
     : 0
-  const avgPaceSecPerKm = totalMs > 0
-    ? (totalMs / 1000) / (TOTAL_DISTANCE / 1000)
+  // Ø-Pace bezogen auf die tatsächlich gelaufene Distanz
+  const distanceM = laps.reduce((sum, _ms, i) => sum + lapDistance(i), 0)
+  const avgPaceSecPerKm = distanceM > 0
+    ? (totalMs / 1000) / (distanceM / 1000)
     : 0
   return { laps, totalMs, fastestIdx, slowestIdx, avgFullLapMs, avgPaceSecPerKm }
 }
