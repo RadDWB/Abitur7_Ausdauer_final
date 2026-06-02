@@ -42,6 +42,11 @@ const iconComponents: Record<string, React.ReactNode> = {
       <path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   ),
+  schwellen: (
+    <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  ),
 };
 
 export default function BelastungssteuerungslaufPage() {
@@ -251,6 +256,83 @@ export default function BelastungssteuerungslaufPage() {
       )
     },
     {
+      id: 'schwellen',
+      title: 'Minimal verteidigbare Schwellen',
+      icon: '🎯',
+      content: (
+        <div className="space-y-6 text-gray-700">
+          <div>
+            <h4 className="text-lg font-bold text-[#004A9F] mb-3">Warum gibt es Schwellen?</h4>
+            <p className="mb-4">
+              Der Belastungssteuerungslauf bewertet primär die <strong>Fähigkeit zur individuellen Belastungsregulation</strong>.
+              Gleichzeitig muss jedoch sichergestellt sein, dass <strong>überhaupt eine ausdauerwirksame Belastung</strong> vorliegt.
+            </p>
+
+            <div className="bg-blue-50 border-l-4 border-[#004A9F] p-4 rounded-r-lg mb-4">
+              <p className="text-sm text-[#004A9F]">
+                <strong>Wichtig:</strong> Diese Schwellen dienen <strong>nicht der Leistungsdifferenzierung</strong>, sondern ausschließlich
+                der Sicherstellung einer relevanten Ausdauerbelastung. Die eigentliche Bewertung erfolgt weiterhin ausschließlich über
+                <strong> Zielzeitgenauigkeit und Tempokonstanz</strong>.
+              </p>
+            </div>
+
+            <p className="text-sm text-gray-600">
+              Unterhalb dieser Grenzen kann nicht mehr zuverlässig davon ausgegangen werden, dass eine für den Sport-LK angemessene,
+              kontinuierlich <strong>laufende</strong> Ausdauerbelastung vorliegt (versus Gehen).
+            </p>
+          </div>
+
+          <hr className="my-4 border-gray-300" />
+
+          <div>
+            <h4 className="text-lg font-bold text-[#004A9F] mb-4">Die Schwellen</h4>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+              <div className="bg-white border-2 border-pink-300 rounded-lg p-5 hover:shadow-md transition-shadow">
+                <h5 className="font-bold text-pink-700 mb-2">👩 Mädchen / Frauen</h5>
+                <div className="text-3xl font-mono font-bold text-pink-600 mb-1">43:00 min</div>
+                <p className="text-sm text-gray-600 mb-2">für 5000m</p>
+                <div className="bg-pink-50 p-2 rounded text-xs text-pink-900 font-semibold">
+                  ≈ 6,98 km/h
+                </div>
+              </div>
+
+              <div className="bg-white border-2 border-blue-300 rounded-lg p-5 hover:shadow-md transition-shadow">
+                <h5 className="font-bold text-blue-700 mb-2">👨 Jungen / Männer</h5>
+                <div className="text-3xl font-mono font-bold text-blue-600 mb-1">40:00 min</div>
+                <p className="text-sm text-gray-600 mb-2">für 5000m</p>
+                <div className="bg-blue-50 p-2 rounded text-xs text-blue-900 font-semibold">
+                  ≈ 7,50 km/h
+                </div>
+              </div>
+            </div>
+
+            <h5 className="font-semibold text-gray-900 mb-3">Begründung:</h5>
+            <ul className="list-disc list-inside space-y-2 text-sm">
+              <li><strong>43 Minuten</strong> entsprechen ziemlich genau <strong>7 km/h</strong> – das ist noch schnelles Gehen</li>
+              <li><strong>7 km/h</strong> ist für viele Menschen noch die Grenze zwischen Gehen und Laufen</li>
+              <li>Wer langsamer ist, kann große Teile der Strecke gehend absolvieren</li>
+              <li><strong>Oberhalb dieser Geschwindigkeit</strong> wird durchgehendes Laufen wahrscheinlicher</li>
+              <li>Für einen Sport-LK werden daher <strong>minimal verteidigbare</strong> Schwellen gesetzt:
+                <br/><strong className="text-[#004A9F]">Mädchen 43:00, Jungen 40:00</strong></li>
+            </ul>
+          </div>
+
+          <hr className="my-4 border-gray-300" />
+
+          <div className="bg-amber-50 border-l-4 border-amber-600 p-4 rounded-r-lg">
+            <h5 className="font-semibold text-amber-900 mb-2">⚡ Klarstellung:</h5>
+            <p className="text-sm text-amber-800">
+              Die Schwellen sind eine <strong>Voraussetzung für die Teilnahme</strong>, nicht Teil der Notengebung.
+              Wenn du diese Zeit unterschreitest, zählt der Lauf nicht als Belastungssteuerungslauf. Wenn du sie einhältst,
+              bekommst du eine Note ausschließlich basierend auf <strong>Zielzeitgenauigkeit + Tempokonstanz</strong> – ganz egal,
+              ob deine Zeit 40, 43, 25 oder 30 Minuten ist!
+            </p>
+          </div>
+        </div>
+      )
+    },
+    {
       id: 'bewertung',
       title: 'Bewertung',
       icon: '⭐',
@@ -273,8 +355,8 @@ export default function BelastungssteuerungslaufPage() {
       content: (
         <div className="space-y-4 text-gray-700 text-sm">
           <div>
-            <p className="font-semibold text-gray-900">F: Kann ich auch gehen?</p>
-            <p className="text-sm">A: Ja, schnelles Gehen ist ausdrücklich erlaubt! Da das Tempo selbst bestimmt wird, kannst du auch eine Gehgeschwindigkeit als Zielzeit einplanen und diese dann konstant einhalten.</p>
+            <p className="font-semibold text-gray-900">F: Ich bin unter der Schwelle gelaufen – bedeutet das automatisch eine 6?</p>
+            <p className="text-sm">A: Nein – es bedeutet, dass dieser Lauf nicht als Belastungssteuerungslauf zählt. Die Schwellen dienen nur dazu sicherzustellen, dass wirklich gelaufen wird, nicht gegangen. Wenn du über der Schwelle bleibst, bekommst du eine Note basierend auf Zielzeitgenauigkeit und Tempokonstanz – völlig unabhängig davon, ob du 40 oder 25 Minuten brauchst.</p>
           </div>
 
           <div>
