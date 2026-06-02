@@ -10,6 +10,39 @@ interface AccordionSection {
   content: React.ReactNode;
 }
 
+const iconComponents: Record<string, React.ReactNode> = {
+  overview: (
+    <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+      <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+    </svg>
+  ),
+  ablauf: (
+    <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+      <path d="M12 8v4l3 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  ),
+  'schueler-info': (
+    <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+      <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+    </svg>
+  ),
+  'lehrer-info': (
+    <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+      <path d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17.25m20-11.002c5.5 0 10 4.745 10 10.002M12 6.253c5.5 0 10 4.745 10 10.002M12 19.253v.003" />
+    </svg>
+  ),
+  bewertung: (
+    <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+      <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+    </svg>
+  ),
+  faq: (
+    <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+      <path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  ),
+};
+
 export default function BelastungssteuerungslaufPage() {
   const [openAccordions, setOpenAccordions] = useState<Record<string, boolean>>({
     overview: true,
@@ -432,7 +465,7 @@ export default function BelastungssteuerungslaufPage() {
                 }`}
               >
                 <span className="flex items-center gap-3 text-lg">
-                  <span className="text-2xl">{section.icon}</span>
+                  <span className="flex items-center justify-center">{iconComponents[section.id]}</span>
                   <span>{section.title}</span>
                 </span>
                 <span className={`transform transition-transform duration-200 text-xl ${openAccordions[section.id] ? 'rotate-180' : ''}`}>
