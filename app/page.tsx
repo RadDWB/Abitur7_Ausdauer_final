@@ -11,7 +11,11 @@ export default function HomePage() {
   const [testauswahlOpen, setTestauswahlOpen] = useState(false);
   const router = useRouter();
 
-  const handleSelectTest = (testType: string) => {
+  const handleViewInfo = (testType: string) => {
+    router.push(`/ausdauer-testen/${testType}`);
+  };
+
+  const handleStartTest = (testType: string) => {
     router.push(`/ausdauer-testen/testauswahl?test=${testType}`);
   };
 
@@ -80,15 +84,32 @@ export default function HomePage() {
             </button>
 
             {testinfoOpen && (
-              <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
-                <h3 className="font-semibold text-blue-900 mb-4">Verfügbare Tests:</h3>
-                <ul className="space-y-2 text-blue-800">
-                  <li>• <strong>Cooper-Test</strong> - 12-Minuten-Lauf</li>
-                  <li>• <strong>Ausdauer-Testlauf</strong> - Standardisierte Laufstrecke</li>
-                  <li>• <strong>Weitere Tests</strong> - Je nach Lehrplan</li>
-                </ul>
-                <p className="text-blue-700 mt-4 text-sm">
-                  Erfahre mehr über die wissenschaftlichen Grundlagen und Durchführungsrichtlinien.
+              <div className="bg-blue-50 p-6 rounded-lg border border-blue-200 space-y-4">
+                <div>
+                  <h3 className="font-semibold text-blue-900 mb-3">Verfügbare Tests:</h3>
+                  <div className="grid grid-cols-3 gap-3">
+                    <button
+                      onClick={() => { setTestinfoOpen(false); handleViewInfo('belastungssteuerungslauf-5000m'); }}
+                      className="border-2 border-blue-600 hover:bg-blue-100 text-blue-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
+                    >
+                      ⏱️ Belastungssteuerungslauf 5000m
+                    </button>
+                    <button
+                      onClick={() => { setTestinfoOpen(false); handleViewInfo('5000m-dauerlauf'); }}
+                      className="border-2 border-blue-600 hover:bg-blue-100 text-blue-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
+                    >
+                      🏃 5000m Dauerlauf
+                    </button>
+                    <button
+                      onClick={() => { setTestinfoOpen(false); handleViewInfo('800m-lauf'); }}
+                      className="border-2 border-blue-600 hover:bg-blue-100 text-blue-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
+                    >
+                      🏅 800m Lauf
+                    </button>
+                  </div>
+                </div>
+                <p className="text-blue-700 text-sm">
+                  Wähle einen Test, um die wissenschaftlichen Grundlagen zu erfahren und Schüler*innen-Ergebnisse zu dokumentieren.
                 </p>
               </div>
             )}
@@ -115,7 +136,7 @@ export default function HomePage() {
       {/* Testauswahl Modal */}
       {testauswahlOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg shadow-2xl max-w-2xl w-full p-8 border border-gray-200">
+          <div className="bg-white rounded-lg shadow-2xl max-w-4xl w-full p-8 border border-gray-200">
             {/* Close Button */}
             <div className="flex justify-end mb-4">
               <button
@@ -138,55 +159,37 @@ export default function HomePage() {
             {/* Schritt 1 */}
             <h3 className="text-xl font-bold text-gray-900 mb-6">Schritt 1: Test wählen</h3>
 
-            {/* Test Grid 2x2 */}
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              {/* Coopertest */}
+            {/* Test Grid - 3 Optionen */}
+            <div className="grid grid-cols-3 gap-4 mb-6">
+              {/* Belastungssteuerungslauf 5000m */}
               <button
-                onClick={() => {
-                  setTestauswahlOpen(false);
-                  handleSelectTest('coopertest');
-                }}
+                onClick={() => { setTestauswahlOpen(false); handleStartTest('belastungssteuerungslauf-5000m'); }}
+                className="border-2 border-blue-600 hover:bg-blue-50 text-blue-700 py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
+              >
+                <span>⏱️</span>
+                Belastungssteuerungslauf 5000m
+              </button>
+
+              {/* 5000m Dauerlauf */}
+              <button
+                onClick={() => { setTestauswahlOpen(false); handleStartTest('5000m-dauerlauf'); }}
                 className="border-2 border-blue-600 hover:bg-blue-50 text-blue-700 py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
               >
                 <span>🏃</span>
-                Coopertest
+                5000m Dauerlauf
               </button>
 
-              {/* 6-Minuten-Lauf */}
-              <button
-                onClick={() => {
-                  setTestauswahlOpen(false);
-                  handleSelectTest('6-minuten-lauf');
-                }}
+              {/* 800m Lauf */}
+              <a
+                href="https://800m.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setTestauswahlOpen(false)}
                 className="border-2 border-blue-600 hover:bg-blue-50 text-blue-700 py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
               >
-                <span>🏃</span>
-                6-Minuten-Lauf
-              </button>
-
-              {/* Beeptest */}
-              <button
-                onClick={() => {
-                  setTestauswahlOpen(false);
-                  handleSelectTest('beeptest');
-                }}
-                className="border-2 border-blue-600 hover:bg-blue-50 text-blue-700 py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
-              >
-                <span>📢</span>
-                Beeptest
-              </button>
-
-              {/* 30-Minuten-Lauf */}
-              <button
-                onClick={() => {
-                  setTestauswahlOpen(false);
-                  handleSelectTest('30-minuten-lauf');
-                }}
-                className="border-2 border-blue-600 hover:bg-blue-50 text-blue-700 py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
-              >
-                <span>🏃</span>
-                30-Minuten-Lauf
-              </button>
+                <span>🏅</span>
+                800m Lauf
+              </a>
             </div>
           </div>
         </div>
