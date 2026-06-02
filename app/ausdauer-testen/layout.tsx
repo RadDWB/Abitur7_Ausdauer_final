@@ -10,8 +10,8 @@ export default function TestLayout({ children }: { children: ReactNode }) {
           <Image
             src="/Zeit.png"
             alt="Eingabe-Interface Logo"
-            width={320}
-            height={320}
+            width={120}
+            height={120}
           />
         </div>
 

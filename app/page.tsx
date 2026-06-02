@@ -12,7 +12,7 @@ export default function HomePage() {
   const router = useRouter();
 
   const handleSelectTest = (testType: string) => {
-    router.push(`/ausdauer-testen/testauswahl?test=${testType}`);
+    router.push(`/ausdauer-testen/${testType}`);
   };
 
   return (
