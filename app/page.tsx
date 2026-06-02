@@ -25,7 +25,7 @@ export default function HomePage() {
       <nav className="bg-gray-100 border-b border-gray-300">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-blue-700 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+            <div className="w-6 h-6 rounded-full bg-teal-700 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
               🏃
             </div>
             <span className="font-semibold text-gray-700 text-sm sm:text-base">AUSDAUER-LAB</span>
@@ -50,19 +50,22 @@ export default function HomePage() {
               <Image
                 src="/AusdauertestenLK.png"
                 alt="Ausdauer testen Logo"
-                width={120}
-                height={120}
+                width={130}
+                height={130}
                 className="rounded-full shadow-lg"
               />
             </div>
 
             {/* Title and Description */}
             <div className="flex-1 text-center sm:text-left">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-blue-700 mb-4">
-                Ausdauertests verstehen und durchführen!
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-teal-700 mb-2">
+                Ausdauertests im Abiturkurs
               </h1>
-              <p className="text-gray-700 mb-2 text-sm sm:text-base">
-                Systematische Erfassung, Bewertung und Analyse von Ausdauerleistungen im Schulsport. Wähle einen Test, lerne die wissenschaftlichen Grundlagen und dokumentiere Schüler*innen-Ergebnisse.
+              <p className="text-base sm:text-lg text-gray-600 font-medium mb-2">
+                5000m Belastungssteuerungslauf, klassischer 5000m Lauf und 800m Lauf
+              </p>
+              <p className="text-gray-500 text-sm sm:text-base">
+                Als Teil einer Abiturprüfung verstehen, durchführen und erfassen.
               </p>
             </div>
           </div>
@@ -74,7 +77,7 @@ export default function HomePage() {
             {/* Testinformationen */}
             <button
               onClick={() => setTestinfoOpen(!testinfoOpen)}
-              className="w-full bg-blue-700 hover:bg-blue-800 text-white py-4 px-5 sm:px-6 rounded-lg flex items-center justify-between text-base sm:text-lg font-semibold transition-colors"
+              className="w-full bg-teal-700 hover:bg-teal-800 text-white py-4 px-5 sm:px-6 rounded-lg flex items-center justify-between text-base sm:text-lg font-semibold transition-colors"
             >
               <span className="flex items-center gap-3">
                 <span>📋</span>
@@ -84,31 +87,31 @@ export default function HomePage() {
             </button>
 
             {testinfoOpen && (
-              <div className="bg-blue-50 p-4 sm:p-6 rounded-lg border border-blue-200 space-y-4">
+              <div className="bg-teal-50 p-4 sm:p-6 rounded-lg border border-teal-200 space-y-4">
                 <div>
-                  <h3 className="font-semibold text-blue-900 mb-3">Verfügbare Tests:</h3>
+                  <h3 className="font-semibold text-teal-900 mb-3">Verfügbare Tests:</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <button
                       onClick={() => { setTestinfoOpen(false); handleViewInfo('belastungssteuerungslauf-5000m'); }}
-                      className="border-2 border-blue-600 hover:bg-blue-100 text-blue-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
+                      className="border-2 border-teal-600 hover:bg-teal-100 text-teal-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
                     >
                       ⏱️ Belastungssteuerungslauf 5000m
                     </button>
                     <button
                       onClick={() => { setTestinfoOpen(false); handleViewInfo('5000m-dauerlauf'); }}
-                      className="border-2 border-blue-600 hover:bg-blue-100 text-blue-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
+                      className="border-2 border-teal-600 hover:bg-teal-100 text-teal-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
                     >
                       🏃 5000m Dauerlauf
                     </button>
                     <button
                       onClick={() => { setTestinfoOpen(false); handleViewInfo('800m-lauf'); }}
-                      className="border-2 border-blue-600 hover:bg-blue-100 text-blue-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
+                      className="border-2 border-teal-600 hover:bg-teal-100 text-teal-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
                     >
                       🏅 800m Lauf
                     </button>
                   </div>
                 </div>
-                <p className="text-blue-700 text-sm">
+                <p className="text-teal-700 text-sm">
                   Wähle einen Test, um die wissenschaftlichen Grundlagen zu erfahren und Schüler*innen-Ergebnisse zu dokumentieren.
                 </p>
               </div>
@@ -117,7 +120,7 @@ export default function HomePage() {
             {/* Ausdauer testen */}
             <button
               onClick={() => setTestauswahlOpen(true)}
-              className="w-full bg-blue-700 hover:bg-blue-800 text-white py-4 px-5 sm:px-6 rounded-lg flex items-center justify-between text-base sm:text-lg font-semibold transition-colors"
+              className="w-full bg-teal-700 hover:bg-teal-800 text-white py-4 px-5 sm:px-6 rounded-lg flex items-center justify-between text-base sm:text-lg font-semibold transition-colors"
             >
               <span className="flex items-center gap-3">
                 <span>⏱️</span>
@@ -126,8 +129,8 @@ export default function HomePage() {
               <span>→</span>
             </button>
 
-            <p className="text-center text-gray-600 text-sm mt-8">
-              Klicke auf "Ausdauer testen" um einen Test auszuwählen...
+            <p className="text-center text-gray-500 text-sm mt-8">
+              Klicke auf &ldquo;Ausdauer testen&rdquo; um einen Test auszuwählen...
             </p>
           </div>
         </div>
@@ -137,33 +140,24 @@ export default function HomePage() {
       {testauswahlOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg shadow-2xl max-w-4xl w-full p-5 sm:p-8 border border-gray-200 max-h-[90vh] overflow-y-auto">
-            {/* Close Button */}
             <div className="flex justify-end mb-4">
-              <button
-                onClick={() => setTestauswahlOpen(false)}
-                className="text-gray-500 hover:text-gray-700 text-2xl"
-              >
-                ✕
-              </button>
+              <button onClick={() => setTestauswahlOpen(false)} className="text-gray-500 hover:text-gray-700 text-2xl">✕</button>
             </div>
 
-            {/* Modal Title */}
             <div className="flex items-center gap-3 mb-2">
               <span className="text-2xl">ℹ️</span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-blue-700">Testauswahl</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-teal-700">Testauswahl</h2>
             </div>
             <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base">
               Wähle einen Test aus und stelle ggf. Parameter ein
             </p>
 
-            {/* Schritt 1 */}
             <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 sm:mb-6">Schritt 1: Test wählen</h3>
 
-            {/* Test Grid - 3 Optionen */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               <button
                 onClick={() => { setTestauswahlOpen(false); handleStartTest('belastungssteuerungslauf-5000m'); }}
-                className="border-2 border-blue-600 hover:bg-blue-50 text-blue-700 py-5 sm:py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
+                className="border-2 border-teal-600 hover:bg-teal-50 text-teal-700 py-5 sm:py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
               >
                 <span>⏱️</span>
                 Belastungssteuerungslauf 5000m
@@ -171,7 +165,7 @@ export default function HomePage() {
 
               <button
                 onClick={() => { setTestauswahlOpen(false); handleStartTest('5000m-dauerlauf'); }}
-                className="border-2 border-blue-600 hover:bg-blue-50 text-blue-700 py-5 sm:py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
+                className="border-2 border-teal-600 hover:bg-teal-50 text-teal-700 py-5 sm:py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
               >
                 <span>🏃</span>
                 5000m Dauerlauf
@@ -182,7 +176,7 @@ export default function HomePage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setTestauswahlOpen(false)}
-                className="border-2 border-blue-600 hover:bg-blue-50 text-blue-700 py-5 sm:py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
+                className="border-2 border-teal-600 hover:bg-teal-50 text-teal-700 py-5 sm:py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
               >
                 <span>🏅</span>
                 800m Lauf
