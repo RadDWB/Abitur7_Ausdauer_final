@@ -87,20 +87,20 @@ export default function HomePage() {
                     <button
                       onClick={() => {
                         setTestinfoOpen(false);
-                        handleSelectTest('5000m-zeitschaetzlauf');
+                        handleSelectTest('belastungssteuerungslauf-5000m');
                       }}
                       className="border-2 border-blue-600 hover:bg-blue-100 text-blue-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
                     >
-                      ⏱️ 5000m Zeitschätzlauf
+                      ⏱️ Belastungssteuerungslauf 5000m
                     </button>
                     <button
                       onClick={() => {
                         setTestinfoOpen(false);
-                        handleSelectTest('5000m-lauf');
+                        handleSelectTest('5000m-dauerlauf');
                       }}
                       className="border-2 border-blue-600 hover:bg-blue-100 text-blue-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
                     >
-                      🏃 5000m Lauf
+                      🏃 5000m Dauerlauf
                     </button>
                   </div>
                 </div>
@@ -157,28 +157,28 @@ export default function HomePage() {
 
             {/* Test Grid - nur 2 Optionen */}
             <div className="grid grid-cols-2 gap-4 mb-6">
-              {/* 5000m Zeitschätzlauf */}
+              {/* Belastungssteuerungslauf 5000m */}
               <button
                 onClick={() => {
                   setTestauswahlOpen(false);
-                  handleSelectTest('5000m-zeitschaetzlauf');
+                  handleSelectTest('belastungssteuerungslauf-5000m');
                 }}
                 className="border-2 border-blue-600 hover:bg-blue-50 text-blue-700 py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
               >
                 <span>⏱️</span>
-                5000m Zeitschätzlauf
+                Belastungssteuerungslauf 5000m
               </button>
 
-              {/* 5000m Lauf */}
+              {/* 5000m Dauerlauf */}
               <button
                 onClick={() => {
                   setTestauswahlOpen(false);
-                  handleSelectTest('5000m-lauf');
+                  handleSelectTest('5000m-dauerlauf');
                 }}
                 className="border-2 border-blue-600 hover:bg-blue-50 text-blue-700 py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
               >
                 <span>🏃</span>
-                5000m Lauf
+                5000m Dauerlauf
               </button>
             </div>
           </div>
