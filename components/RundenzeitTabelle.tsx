@@ -160,7 +160,7 @@ export default function RundenzeitTabelle() {
 
   // Kennzahlen für die Live-Anzeige
   const capturedCount = captured.filter(Boolean).length
-  const sumSec = runden.reduce((s, t, i) => s + (i === 0 ? t * 0.5 : t), 0)
+  const sumSec = runden.reduce((s, t) => s + t, 0)
   const fullLapTimes = runden.filter((_, i) => i > 0 && captured[i])
   const maxLap = Math.max(1, ...fullLapTimes)
 

@@ -1,10 +1,11 @@
 /**
  * =============================================================================
- * Zeitschätzlauf 5000 m – Berechnungs­modul (halbe Runde korrekt gewichtet)
+ * Belastungssteuerungslauf 5000 m – Berechnungs­modul
  * =============================================================================
  *
  * Prüfungsformat (Kernpunkte):
- * - Distanz: 5000 m (0,5 Runde + 12 volle Runden)
+ * - Distanz: 5000 m (½ Runde à 200m + 12 volle Runden à 400m)
+ * - Endzeit = Summe aller gemessenen Splitzeiten (jede zählt voll)
  * - Selbsteingestellte Zielzeit (MM:SS)
  * - Bewertung:
  *    • Abweichung von Zielzeit (max. 10 Pkt)
@@ -51,11 +52,11 @@ export default function calculate(
   // 1. Zielzeit in Sekunden
   const zielSec = parseTargetTime(ziel);
 
-  // 2. Endzeit: halbe Runde zählt 0.5, volle Runden zählen 1
-  const totalSec = runden.reduce(
-    (sum, t, i) => sum + (i === 0 ? t * 0.5 : t),
-    0
-  );
+  // 2. Endzeit: Summe aller gemessenen Splitzeiten
+  //    (½ Runde à 200m + 12 volle Runden à 400m = 5000m).
+  //    Jede Splitzeit ist die real verstrichene Zeit für ihren Abschnitt
+  //    und zählt daher voll – die halbe Runde wird NICHT zusätzlich halbiert.
+  const totalSec = runden.reduce((sum, t) => sum + t, 0);
   const istZeit = formatTime(totalSec);
 
   // 3. Prozentuale Abweichung von Zielzeit
