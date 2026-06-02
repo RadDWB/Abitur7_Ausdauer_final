@@ -3,9 +3,10 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function HomePage() {
-  const [activeModal, setActiveModal] = useState<'info' | 'test' | null>(null);
+  const [testinfoOpen, setTestinfoOpen] = useState(false);
   const router = useRouter();
 
   const handleTestClick = () => {
@@ -13,76 +14,100 @@ export default function HomePage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white flex flex-col justify-center items-center p-4">
-      {/* Header mit Logo */}
-      <div className="text-center mb-12">
-        <div className="mb-6 flex justify-center">
-          <Image
-            src="/AusdauertestenLK.png"
-            alt="Ausdauer testen Logo"
-            width={120}
-            height={120}
-            priority
-            className="rounded-lg shadow-lg"
-          />
-        </div>
-        <h1 className="text-4xl md:text-5xl font-bold mb-3 text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
-          Ausdauer im Abitur testen
-        </h1>
-        <p className="text-lg text-slate-300">Sport Leistungskurs</p>
-      </div>
-
-      {/* Modal Buttons Container */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-2xl">
-        {/* Testinformationen Button */}
-        <button
-          onClick={() => setActiveModal('info')}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-8 px-6 rounded-lg shadow-lg transform transition hover:scale-105 text-center group"
-        >
-          <div className="text-3xl mb-3">ℹ️</div>
-          <div className="text-xl group-hover:text-blue-100">Testinformationen</div>
-          <div className="text-sm text-blue-200 mt-2">Erfahre mehr über den Test</div>
-        </button>
-
-        {/* Ausdauer testen Button */}
-        <button
-          onClick={handleTestClick}
-          className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-8 px-6 rounded-lg shadow-lg transform transition hover:scale-105 text-center group"
-        >
-          <div className="text-3xl mb-3">🏃</div>
-          <div className="text-xl group-hover:text-emerald-100">Ausdauer testen</div>
-          <div className="text-sm text-emerald-200 mt-2">Starten Sie jetzt</div>
-        </button>
-      </div>
-
-      {/* Modal: Testinformationen */}
-      {activeModal === 'info' && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-slate-800 rounded-lg shadow-2xl max-w-md w-full p-6 border border-slate-700">
-            <h2 className="text-2xl font-bold mb-4 text-blue-400">Testinformationen</h2>
-            <div className="text-slate-300 space-y-4 mb-6">
-              <p>
-                <strong>Testtyp:</strong> Cooper-Test (12-Minuten-Lauf)
-              </p>
-              <p>
-                <strong>Dauer:</strong> 12 Minuten durchgehendes Laufen
-              </p>
-              <p>
-                <strong>Ziel:</strong> Maximale Distanz in 12 Minuten zurücklegen
-              </p>
-              <p>
-                <strong>Vorbereitung:</strong> Gutes Schuhwerk und ausreichend Wasser empfohlen
-              </p>
+    <main className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-gray-100 border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white text-sm font-bold">
+              🏃
             </div>
-            <button
-              onClick={() => setActiveModal(null)}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition"
-            >
-              Verstanden
-            </button>
+            <span className="text-sm font-semibold text-gray-700">AUSDAUER-TEST ABITUR</span>
+            <span className="text-sm font-semibold text-gray-500">Sport Leistungskurs</span>
+          </div>
+          <nav className="flex items-center gap-6">
+            <Link href="/" className="text-sm text-gray-600 hover:text-gray-900">Zur Homepage</Link>
+            <button className="text-sm text-gray-600 hover:text-gray-900">Info</button>
+            <button className="text-sm text-gray-600 hover:text-gray-900">Hintergrund</button>
+            <button className="text-2xl">🌙</button>
+          </nav>
+        </div>
+      </header>
+
+      {/* Content */}
+      <div className="max-w-4xl mx-auto px-6 py-12">
+        {/* Logo and Title */}
+        <div className="flex items-start gap-6 mb-8">
+          <div className="flex-shrink-0">
+            <Image
+              src="/AusdauertestenLK.png"
+              alt="Ausdauer testen Logo"
+              width={80}
+              height={80}
+              className="rounded-full"
+            />
+          </div>
+          <div>
+            <h1 className="text-4xl font-bold text-teal-700 mb-4">
+              Ausdauertests verstehen und durchführen!
+            </h1>
+            <p className="text-gray-600 text-center">
+              Systematische Erfassung, Bewertung und Analyse von Ausdauerleistungen im Schulsport. Wähle einen Test, lerne die wissenschaftlichen Grundlagen und dokumentiere Schüler*innen-Ergebnisse.
+            </p>
           </div>
         </div>
-      )}
+
+        {/* Buttons/Accordion */}
+        <div className="space-y-4 mt-12">
+          {/* Testinformationen */}
+          <button
+            onClick={() => setTestinfoOpen(!testinfoOpen)}
+            className="w-full bg-teal-700 hover:bg-teal-800 text-white py-4 px-6 rounded-lg flex items-center justify-between text-lg font-semibold transition-colors"
+          >
+            <span className="flex items-center gap-3">
+              <span>📋</span>
+              Testinformationen
+            </span>
+            <span className={`transform transition-transform ${testinfoOpen ? 'rotate-180' : ''}`}>▼</span>
+          </button>
+
+          {testinfoOpen && (
+            <div className="bg-gray-100 p-6 rounded-lg border border-gray-200">
+              <h3 className="font-semibold text-gray-900 mb-4">Verfügbare Tests:</h3>
+              <ul className="space-y-2 text-gray-700">
+                <li>• <strong>Cooper-Test</strong> - 12-Minuten-Lauf</li>
+                <li>• <strong>Ausdauer-Testlauf</strong> - Standardisierte Laufstrecke</li>
+                <li>• <strong>Weitere Tests</strong> - Je nach Lehrplan</li>
+              </ul>
+              <p className="text-gray-600 mt-4 text-sm">
+                Erfahre mehr über die wissenschaftlichen Grundlagen und Durchführungsrichtlinien.
+              </p>
+            </div>
+          )}
+
+          {/* Ausdauer testen */}
+          <button
+            onClick={handleTestClick}
+            className="w-full bg-teal-700 hover:bg-teal-800 text-white py-4 px-6 rounded-lg flex items-center justify-between text-lg font-semibold transition-colors"
+          >
+            <span className="flex items-center gap-3">
+              <span>⏱️</span>
+              Ausdauer testen
+            </span>
+            <span>→</span>
+          </button>
+
+          <p className="text-center text-gray-600 text-sm mt-6">
+            Klicke auf "Ausdauer testen" um einen Test auszuwählen...
+          </p>
+        </div>
+
+        {/* Footer Info */}
+        <div className="mt-16 pt-8 border-t border-gray-200 text-center text-gray-600 text-sm">
+          <p className="font-semibold mb-2">Ausdauer Test Abitur</p>
+          <p>Sport Leistungskurs - Systematische Erfassung und Analyse</p>
+        </div>
+      </div>
     </main>
   );
 }
