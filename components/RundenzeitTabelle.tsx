@@ -1,7 +1,7 @@
 'use client'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import calculate, { Result } from '../utils/berechnung'
-import { fmtMs, fmtMsShort } from '../app/lib/dauerlauf'
+import { fmtMs, fmtMsShort, buildBslShareUrl, type BslShareData } from '../app/lib/dauerlauf'
 import * as XLSX from 'xlsx'
 import jsPDF from 'jspdf'
 
@@ -18,6 +18,8 @@ export default function RundenzeitTabelle() {
   const [captured, setCaptured] = useState<boolean[]>(Array(LAP_COUNT).fill(false))
   const [ignore, setIgnore] = useState<boolean[]>(Array(LAP_COUNT).fill(false))
   const [history, setHistory] = useState<Result[]>([])
+  const [shareUrl, setShareUrl] = useState<string | null>(null)
+  const [copied, setCopied] = useState(false)
 
   // ─── Stoppuhr ───────────────────────────────────────────────
   const [elapsedMs, setElapsedMs] = useState(0)
@@ -109,6 +111,7 @@ export default function RundenzeitTabelle() {
   const addResult = () => {
     const res = calculate(runden, ignore, zielzeit, name)
     setHistory(h => [...h, res])
+    buildQr(res)
   }
 
   const removeAt = (i: number) => setHistory(h => h.filter((_, idx) => idx !== i))
@@ -129,6 +132,30 @@ export default function RundenzeitTabelle() {
       doc.text(`${idx + 1}. ${r.name} – Endzeit ${r.istZeit} – Note ${r.note} (${r.gesamt} Pkt.)`, 14, 32 + idx * 8)
     })
     doc.save('zeitschaetzlauf.pdf')
+  }
+
+  const buildQr = (result: Result) => {
+    const data: BslShareData = {
+      v: 1,
+      n: result.name,
+      z: result.istZeit,
+      l: runden,
+      d: new Date().toISOString().slice(0, 10),
+    }
+    const url = buildBslShareUrl(window.location.origin, data)
+    setShareUrl(url)
+    setCopied(false)
+  }
+
+  const copyLink = async () => {
+    if (!shareUrl) return
+    try {
+      await navigator.clipboard.writeText(shareUrl)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      setCopied(false)
+    }
   }
 
   // Kennzahlen für die Live-Anzeige
@@ -354,6 +381,50 @@ export default function RundenzeitTabelle() {
               ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {/* ─── QR-Übergabe ─── */}
+      {shareUrl && (
+        <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+          <h3 className="font-bold text-gray-900 mb-4">Übergabe an Lehrkraft</h3>
+          <div className="flex flex-col items-center gap-4">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(shareUrl)}`}
+              alt="QR-Code für die Ergebnisübergabe"
+              width={240}
+              height={240}
+              className="border border-gray-200 rounded-lg shadow-sm"
+            />
+            <p className="text-sm text-gray-600 text-center max-w-md">
+              Die Lehrkraft scannt diesen Code — es öffnet sich automatisch eine Ergebniskarte
+              mit allen Lauf- und Bewertungsdaten.
+            </p>
+            <div className="w-full">
+              <p className="text-xs text-gray-400 mb-1">Link als Fallback:</p>
+              <div className="flex gap-2">
+                <input
+                  readOnly
+                  value={shareUrl}
+                  className="flex-1 border border-gray-300 p-2 rounded-lg text-xs font-mono text-gray-600 focus:outline-none"
+                  onFocus={e => e.currentTarget.select()}
+                />
+                <button
+                  onClick={copyLink}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors active:scale-95"
+                >
+                  {copied ? '✓ Kopiert' : '📋 Link kopieren'}
+                </button>
+              </div>
+            </div>
+            <button
+              onClick={() => setShareUrl(null)}
+              className="text-sm text-gray-500 hover:text-gray-700"
+            >
+              Schließen
+            </button>
+          </div>
         </div>
       )}
     </div>

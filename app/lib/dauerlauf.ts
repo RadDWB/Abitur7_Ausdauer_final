@@ -157,3 +157,33 @@ export function decodeRun(encoded: string): RunShareData | null {
 export function buildShareUrl(origin: string, data: RunShareData): string {
   return `${origin}/ergebnis#d=${encodeRun(data)}`
 }
+
+// ─── Belastungssteuerungslauf QR-Share ─────────────────────────
+// Datenstruktur für Belastungssteuerungslauf (keine Geschlechts-Differenzierung)
+export interface BslShareData {
+  v: 1                 // Schema-Version
+  n: string            // Name
+  z: string            // Zielzeit (MM:SS)
+  l: number[]          // Rundenzeiten in Sekunden (mit 1 Dezimalstelle)
+  d: string            // Datum ISO (yyyy-mm-dd)
+}
+
+export function encodeBslRun(data: BslShareData): string {
+  return toBase64Url(JSON.stringify(data))
+}
+
+export function decodeBslRun(encoded: string): BslShareData | null {
+  try {
+    const obj = JSON.parse(fromBase64Url(encoded))
+    if (obj && obj.v === 1 && typeof obj.n === 'string' && Array.isArray(obj.l)) {
+      return obj as BslShareData
+    }
+    return null
+  } catch {
+    return null
+  }
+}
+
+export function buildBslShareUrl(origin: string, data: BslShareData): string {
+  return `${origin}/ergebnis-bsl#d=${encodeBslRun(data)}`
+}
