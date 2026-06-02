@@ -8,6 +8,7 @@ import {
   fmtMs,
   fmtMsShort,
   FULL_LAPS,
+  TOTAL_LAPS,
   lapLabel,
   lapDistance,
   analyzeLaps,
@@ -73,12 +74,23 @@ export default function Dauerlauf5000mSolo() {
 
   // ── Aktionen ──────────────────────────────────────────────
   const recordLap = () => {
+    if (laps.length >= TOTAL_LAPS) return
     const now = baseMsRef.current + (isRunning ? Date.now() - startTimeRef.current : 0)
     setLaps(prev => {
+      if (prev.length >= TOTAL_LAPS) return prev
       const sumSoFar = prev.reduce((a, b) => a + b, 0)
       const lapMs = now - sumSoFar
       if (lapMs <= 0) return prev
-      return [...prev, lapMs]
+      const next = [...prev, lapMs]
+      // Nach 5000m (letzter Klick) Uhr automatisch anhalten
+      if (next.length >= TOTAL_LAPS && intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+        baseMsRef.current = now
+        setElapsedMs(now)
+        setIsRunning(false)
+      }
+      return next
     })
   }
 
@@ -133,7 +145,8 @@ export default function Dauerlauf5000mSolo() {
   }
 
   const completedLaps = laps.length
-  const remainingFullLaps = Math.max(0, FULL_LAPS - completedLaps)
+  const remaining = Math.max(0, TOTAL_LAPS - completedLaps)
+  const allDone = completedLaps >= TOTAL_LAPS
   const coveredDistance = laps.reduce((sum, _ms, i) => sum + lapDistance(i), 0)
 
   // ── PHASE: Setup ──────────────────────────────────────────
@@ -176,11 +189,12 @@ export default function Dauerlauf5000mSolo() {
           </div>
 
           <div className="mb-6 bg-blue-50 border border-blue-200 rounded-xl p-5">
-            <p className="font-bold text-blue-800 mb-1">So funktioniert&apos;s</p>
-            <p className="text-blue-900 leading-relaxed">
-              Der Lauf wird auf einer 400m-Bahn durchgeführt. Tippe nach jeder Runde (400m)
-              auf den großen RUNDE-Button. Nach 12 Runden folgt der Schlussabschnitt von 200m.
-            </p>
+            <p className="font-bold text-blue-800 mb-2">So funktioniert&apos;s</p>
+            <ul className="text-blue-900 leading-relaxed space-y-1.5 text-sm">
+              <li>📍 Du startest am <strong>200m-Start</strong> und läufst zuerst eine <strong>halbe Runde</strong>, bevor du die Ziellinie zum ersten Mal überquerst.</li>
+              <li>👉 Drücke den großen Button <strong>jedes Mal, wenn du die Ziellinie überquerst</strong> – beim ersten Mal nach 200m, danach nach jeder vollen Runde (400m).</li>
+              <li>🏁 Insgesamt sind es <strong>13 Klicks</strong> (½ Runde + 12 volle Runden = 5000m). Beim letzten Klick stoppt die Uhr automatisch.</li>
+            </ul>
           </div>
 
           <button
@@ -197,10 +211,11 @@ export default function Dauerlauf5000mSolo() {
 
   // ── PHASE: Running ────────────────────────────────────────
   if (phase === 'running') {
-    const inFinalSection = completedLaps >= FULL_LAPS
-    const phaseLabel = inFinalSection
-      ? 'Schlussabschnitt 200m'
-      : `Runde ${completedLaps + 1} / ${FULL_LAPS}`
+    const phaseLabel = allDone
+      ? '🏁 5000m geschafft!'
+      : completedLaps === 0
+      ? '½ Runde (200m) bis zur ersten Ziellinie'
+      : `Runde ${completedLaps} / ${FULL_LAPS}`
 
     return (
       <div className="space-y-5">
@@ -208,23 +223,47 @@ export default function Dauerlauf5000mSolo() {
         <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm text-center">
           {className && <p className="text-gray-500 text-sm mb-1">{className}</p>}
           <p className="text-gray-700 font-semibold mb-3">{name}</p>
-          <div className="text-6xl sm:text-7xl font-mono font-bold text-blue-700 mb-3 tabular-nums">
+          <div className={`text-6xl sm:text-7xl font-mono font-bold mb-3 tabular-nums ${allDone ? 'text-green-600' : 'text-blue-700'}`}>
             {fmtMs(elapsedMs)}
           </div>
           <div className="text-lg font-bold text-gray-900">{phaseLabel}</div>
-          <div className="flex justify-center gap-6 text-sm text-gray-500 mt-2">
-            <span>{coveredDistance} m</span>
-            <span>{inFinalSection ? 'noch 200m' : `noch ${remainingFullLaps} Runden + 200m`}</span>
+          <div className="flex justify-center gap-6 text-sm text-gray-500 mt-1">
+            <span>{coveredDistance} m / 5000 m</span>
+            {!allDone && <span>noch {remaining} ×</span>}
           </div>
+
+          {/* Runden-Punkte: rot → grün beim Überqueren der Ziellinie */}
+          <div className="flex flex-wrap justify-center gap-2 mt-4">
+            {Array.from({ length: TOTAL_LAPS }).map((_, i) => {
+              const done = i < completedLaps
+              const isHalf = i === 0
+              return (
+                <div
+                  key={i}
+                  title={lapLabel(i)}
+                  className={`flex items-center justify-center rounded-full text-[10px] font-bold transition-colors ${
+                    isHalf ? 'w-6 h-6' : 'w-7 h-7'
+                  } ${done ? 'bg-green-500 text-white' : 'bg-red-400/80 text-white'}`}
+                >
+                  {isHalf ? '½' : i}
+                </div>
+              )
+            })}
+          </div>
+          <p className="text-xs text-gray-400 mt-2">
+            {completedLaps} von {TOTAL_LAPS} Ziellinien-Überquerungen
+          </p>
         </div>
 
         {/* RUNDE-Button */}
         <button
           onClick={recordLap}
-          disabled={!isRunning && elapsedMs === 0}
-          className="w-full bg-blue-700 hover:bg-blue-800 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-white py-12 rounded-2xl text-4xl font-extrabold transition-transform active:scale-95 shadow-md"
+          disabled={(!isRunning && elapsedMs === 0) || allDone}
+          className={`w-full disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-white py-12 rounded-2xl text-4xl font-extrabold transition-transform active:scale-95 shadow-md ${
+            allDone ? 'bg-green-600' : 'bg-blue-700 hover:bg-blue-800'
+          }`}
         >
-          RUNDE ✓
+          {allDone ? '✓ 5000m FERTIG' : completedLaps === 0 ? 'ZIELLINIE ✓' : 'RUNDE ✓'}
         </button>
 
         {/* Steuerung */}
@@ -232,7 +271,8 @@ export default function Dauerlauf5000mSolo() {
           {!isRunning ? (
             <button
               onClick={startWatch}
-              className="flex-1 bg-green-600 hover:bg-green-700 text-white py-4 rounded-xl text-lg font-bold transition-colors active:scale-95"
+              disabled={allDone}
+              className="flex-1 bg-green-600 hover:bg-green-700 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-white py-4 rounded-xl text-lg font-bold transition-colors active:scale-95"
             >
               ▶ {elapsedMs === 0 ? 'Start' : 'Weiter'}
             </button>
@@ -256,9 +296,11 @@ export default function Dauerlauf5000mSolo() {
         <button
           onClick={finish}
           disabled={laps.length === 0}
-          className="w-full bg-blue-700 hover:bg-blue-800 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-white py-4 rounded-xl text-lg font-bold transition-colors active:scale-95"
+          className={`w-full disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-white py-4 rounded-xl text-lg font-bold transition-colors active:scale-95 ${
+            allDone ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-700 hover:bg-blue-800'
+          }`}
         >
-          🏁 Ziel &amp; Auswertung
+          {allDone ? '📊 Zur Auswertung' : '🏁 Ziel & Auswertung'}
         </button>
 
         {/* Rundenliste */}

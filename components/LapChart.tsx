@@ -1,6 +1,6 @@
 'use client'
 
-import { fmtMsShort, FULL_LAPS } from '../app/lib/dauerlauf'
+import { fmtMsShort } from '../app/lib/dauerlauf'
 
 interface LapChartProps {
   laps: number[]          // Rundendauern in ms
@@ -9,13 +9,13 @@ interface LapChartProps {
 }
 
 // Schlankes SVG-Balkendiagramm der Rundenzeiten (ohne externe Lib).
-// Die letzte Runde (200m) wird zur Vergleichbarkeit auf 400m hochgerechnet
-// dargestellt (gestrichelt markiert).
+// Index 0 ist die halbe Anfangsrunde (200m) und wird zur Vergleichbarkeit
+// auf 400m hochgerechnet dargestellt (gestrichelt markiert).
 export default function LapChart({ laps, fastestIdx, slowestIdx }: LapChartProps) {
   if (!laps.length) return null
 
-  // Normierte Werte: Schlussabschnitt (200m) ×2 für faire Balkenhöhe
-  const norm = laps.map((ms, i) => (i >= FULL_LAPS ? ms * 2 : ms))
+  // Normierte Werte: halbe Runde (200m, Index 0) ×2 für faire Balkenhöhe
+  const norm = laps.map((ms, i) => (i === 0 ? ms * 2 : ms))
   const max = Math.max(...norm)
 
   const W = 640
@@ -36,7 +36,7 @@ export default function LapChart({ laps, fastestIdx, slowestIdx }: LapChartProps
 
         {/* Ø-Linie der vollen Runden */}
         {(() => {
-          const full = norm.slice(0, FULL_LAPS)
+          const full = norm.slice(1)
           if (!full.length) return null
           const avg = full.reduce((a, b) => a + b, 0) / full.length
           const y = padT + chartH - (avg / max) * chartH
@@ -52,18 +52,18 @@ export default function LapChart({ laps, fastestIdx, slowestIdx }: LapChartProps
           const h = (norm[i] / max) * chartH
           const x = padL + i * (barW + barGap)
           const y = padT + chartH - h
-          const isFinal = i >= FULL_LAPS
+          const isHalf = i === 0
           let fill = '#1d4ed8'
           if (i === fastestIdx) fill = '#16a34a'
           else if (i === slowestIdx) fill = '#dc2626'
-          else if (isFinal) fill = '#94a3b8'
+          else if (isHalf) fill = '#94a3b8'
           return (
             <g key={i}>
               <rect
                 x={x} y={y} width={barW} height={h} rx={2}
                 fill={fill}
-                strokeDasharray={isFinal ? '3 2' : undefined}
-                stroke={isFinal ? '#64748b' : undefined}
+                strokeDasharray={isHalf ? '3 2' : undefined}
+                stroke={isHalf ? '#64748b' : undefined}
               />
               {/* Zeit über dem Balken */}
               <text x={x + barW / 2} y={y - 3} fontSize={8} fill="#374151" textAnchor="middle">
@@ -71,7 +71,7 @@ export default function LapChart({ laps, fastestIdx, slowestIdx }: LapChartProps
               </text>
               {/* Rundennummer */}
               <text x={x + barW / 2} y={padT + chartH + 12} fontSize={9} fill="#6b7280" textAnchor="middle">
-                {isFinal ? '🏁' : i + 1}
+                {isHalf ? '½' : i}
               </text>
             </g>
           )
@@ -80,7 +80,7 @@ export default function LapChart({ laps, fastestIdx, slowestIdx }: LapChartProps
       <div className="flex flex-wrap gap-4 text-xs text-gray-600 mt-2 px-1">
         <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm bg-green-600 inline-block" /> schnellste Runde</span>
         <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm bg-red-600 inline-block" /> langsamste Runde</span>
-        <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm bg-slate-400 inline-block" /> Schluss 200m (×2 skaliert)</span>
+        <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-sm bg-slate-400 inline-block" /> ½ Runde 200m (×2 skaliert)</span>
         <span className="flex items-center gap-1"><span className="w-4 border-t-2 border-dashed border-blue-500 inline-block" /> Ø 400m</span>
       </div>
     </div>
