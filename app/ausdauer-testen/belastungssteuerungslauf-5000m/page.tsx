@@ -72,13 +72,9 @@ export default function BelastungssteuerungslaufPage() {
             </div>
 
             <div>
-              <h5 className="font-semibold text-gray-900">4. Curriculare Integration</h5>
-              <p className="text-sm">Der Test ist in Abiturprüfungen integriert und dient als Leistungsnachweis.</p>
-            </div>
-
-            <div>
-              <h5 className="font-semibold text-gray-900">5. Individuelle Leistungserbringung</h5>
+              <h5 className="font-semibold text-gray-900">4. Individuelle Leistungserbringung</h5>
               <p className="text-sm">Durch die freie Zielzeitwahl können Anfänger und Leistungssportler am gleichen Test teilnehmen und angemessen bewertet werden.</p>
+              <p className="text-sm mt-2"><strong>Genderunabhängig überprüfbar:</strong> Jungen wie Mädchen zeigen hier geschlechterunabhängig die Fähigkeit, die Belastung zu steuern. Der Test misst nicht absolute Schnelligkeit, sondern die Fähigkeit zur Tempokontrolle und Belastungsregulation – Kompetenzen, die geschlechtsunabhängig sind.</p>
             </div>
           </div>
 
