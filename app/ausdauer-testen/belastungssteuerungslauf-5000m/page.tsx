@@ -313,9 +313,22 @@ export default function BelastungssteuerungslaufPage() {
               <li><strong>7 km/h</strong> ist für viele Menschen noch die Grenze zwischen Gehen und Laufen</li>
               <li>Wer langsamer ist, kann große Teile der Strecke gehend absolvieren</li>
               <li><strong>Oberhalb dieser Geschwindigkeit</strong> wird durchgehendes Laufen wahrscheinlicher</li>
-              <li>Für einen Sport-LK werden daher <strong>minimal verteidigbare</strong> Schwellen gesetzt:
-                <br/><strong className="text-[#004A9F]">Mädchen 43:00, Jungen 40:00</strong></li>
             </ul>
+
+            <div className="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-r-lg mt-4">
+              <h5 className="font-semibold text-blue-900 mb-2">Warum unterschiedliche Schwellen für Frauen und Männer?</h5>
+              <p className="text-sm text-blue-800 mb-2">
+                Die unterschiedlichen Schwellen (43:00 vs. 40:00) sind <strong>keine Leistungsbewertung</strong>, sondern rein biomechanisch begründet:
+              </p>
+              <ul className="list-disc list-inside space-y-1 text-sm text-blue-800">
+                <li>Bei gleicher <strong>absoluter Geschwindigkeit</strong> (z.B. 7 km/h) ist die <strong>physiologische Belastung</strong> für Frauen <em>höher</em> (wegen kleinerer Körpermasse, höhere relative Belastungsintensität)</li>
+                <li>Um die <strong>gleiche physiologische Qualität</strong> zu prüfen („läuft die Person noch im echten Lauf-Bereich?"), müssen unterschiedliche <strong>Geschwindigkeits-Schwellen</strong> gelten</li>
+                <li>Dies ist eine <strong>Angleichung der Anforderung</strong> auf gleiche Belastungs-Ebene – nicht diskriminierend, sondern fair</li>
+              </ul>
+            </div>
+
+            <p className="font-semibold text-gray-900 mt-4 mb-2">Minimal verteidigbare Schwellen:</p>
+            <p className="text-sm text-gray-600"><strong className="text-[#004A9F]">Mädchen 43:00</strong> | <strong className="text-[#004A9F]">Jungen 40:00</strong></p>
           </div>
 
           <hr className="my-4 border-gray-300" />
