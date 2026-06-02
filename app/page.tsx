@@ -25,7 +25,7 @@ export default function HomePage() {
       <nav className="bg-gray-100 border-b border-gray-300">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-teal-700 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+            <div className="w-6 h-6 rounded-full bg-[#004A9F] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
               🏃
             </div>
             <span className="font-semibold text-gray-700 text-sm sm:text-base">AUSDAUER-LAB</span>
@@ -33,9 +33,6 @@ export default function HomePage() {
           </div>
           <nav className="flex items-center gap-2 sm:gap-6">
             <Link href="/" className="text-sm text-gray-600 hover:text-gray-900 hidden sm:inline">Zur Homepage</Link>
-            <button className="text-sm text-gray-600 hover:text-gray-900 hidden sm:inline">Info</button>
-            <button className="text-sm text-gray-600 hover:text-gray-900 hidden sm:inline">Hintergrund</button>
-            <button className="text-xl">🌙</button>
           </nav>
         </div>
       </nav>
@@ -52,13 +49,13 @@ export default function HomePage() {
                 alt="Ausdauer testen Logo"
                 width={130}
                 height={130}
-                className="rounded-full shadow-lg"
+                className="rounded-full"
               />
             </div>
 
             {/* Title and Description */}
             <div className="flex-1 text-center sm:text-left">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-teal-700 mb-2">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#004A9F] mb-2">
                 Ausdauertests im Abiturkurs
               </h1>
               <p className="text-base sm:text-lg text-gray-600 font-medium mb-2">
@@ -77,7 +74,7 @@ export default function HomePage() {
             {/* Testinformationen */}
             <button
               onClick={() => setTestinfoOpen(!testinfoOpen)}
-              className="w-full bg-teal-700 hover:bg-teal-800 text-white py-4 px-5 sm:px-6 rounded-lg flex items-center justify-between text-base sm:text-lg font-semibold transition-colors"
+              className="w-full bg-[#004A9F] hover:bg-[#003a7a] text-white py-4 px-5 sm:px-6 rounded-lg flex items-center justify-between text-base sm:text-lg font-semibold transition-colors"
             >
               <span className="flex items-center gap-3">
                 <span>📋</span>
@@ -87,31 +84,31 @@ export default function HomePage() {
             </button>
 
             {testinfoOpen && (
-              <div className="bg-teal-50 p-4 sm:p-6 rounded-lg border border-teal-200 space-y-4">
+              <div className="bg-blue-50 p-4 sm:p-6 rounded-lg border border-blue-200 space-y-4">
                 <div>
-                  <h3 className="font-semibold text-teal-900 mb-3">Verfügbare Tests:</h3>
+                  <h3 className="font-semibold text-[#003a7a] mb-3">Verfügbare Tests:</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <button
                       onClick={() => { setTestinfoOpen(false); handleViewInfo('belastungssteuerungslauf-5000m'); }}
-                      className="border-2 border-teal-600 hover:bg-teal-100 text-teal-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
+                      className="border-2 border-[#004A9F] hover:bg-blue-100 text-[#004A9F] py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
                     >
                       ⏱️ Belastungssteuerungslauf 5000m
                     </button>
                     <button
                       onClick={() => { setTestinfoOpen(false); handleViewInfo('5000m-dauerlauf'); }}
-                      className="border-2 border-teal-600 hover:bg-teal-100 text-teal-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
+                      className="border-2 border-[#004A9F] hover:bg-blue-100 text-[#004A9F] py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
                     >
                       🏃 5000m Dauerlauf
                     </button>
                     <button
                       onClick={() => { setTestinfoOpen(false); handleViewInfo('800m-lauf'); }}
-                      className="border-2 border-teal-600 hover:bg-teal-100 text-teal-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
+                      className="border-2 border-[#004A9F] hover:bg-blue-100 text-[#004A9F] py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
                     >
                       🏅 800m Lauf
                     </button>
                   </div>
                 </div>
-                <p className="text-teal-700 text-sm">
+                <p className="text-[#004A9F] text-sm">
                   Wähle einen Test, um die wissenschaftlichen Grundlagen zu erfahren und Schüler*innen-Ergebnisse zu dokumentieren.
                 </p>
               </div>
@@ -120,7 +117,7 @@ export default function HomePage() {
             {/* Ausdauer testen */}
             <button
               onClick={() => setTestauswahlOpen(true)}
-              className="w-full bg-teal-700 hover:bg-teal-800 text-white py-4 px-5 sm:px-6 rounded-lg flex items-center justify-between text-base sm:text-lg font-semibold transition-colors"
+              className="w-full bg-[#004A9F] hover:bg-[#003a7a] text-white py-4 px-5 sm:px-6 rounded-lg flex items-center justify-between text-base sm:text-lg font-semibold transition-colors"
             >
               <span className="flex items-center gap-3">
                 <span>⏱️</span>
@@ -146,7 +143,7 @@ export default function HomePage() {
 
             <div className="flex items-center gap-3 mb-2">
               <span className="text-2xl">ℹ️</span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-teal-700">Testauswahl</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-[#004A9F]">Testauswahl</h2>
             </div>
             <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base">
               Wähle einen Test aus und stelle ggf. Parameter ein
@@ -157,7 +154,7 @@ export default function HomePage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               <button
                 onClick={() => { setTestauswahlOpen(false); handleStartTest('belastungssteuerungslauf-5000m'); }}
-                className="border-2 border-teal-600 hover:bg-teal-50 text-teal-700 py-5 sm:py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
+                className="border-2 border-[#004A9F] hover:bg-blue-50 text-[#004A9F] py-5 sm:py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
               >
                 <span>⏱️</span>
                 Belastungssteuerungslauf 5000m
@@ -165,7 +162,7 @@ export default function HomePage() {
 
               <button
                 onClick={() => { setTestauswahlOpen(false); handleStartTest('5000m-dauerlauf'); }}
-                className="border-2 border-teal-600 hover:bg-teal-50 text-teal-700 py-5 sm:py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
+                className="border-2 border-[#004A9F] hover:bg-blue-50 text-[#004A9F] py-5 sm:py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
               >
                 <span>🏃</span>
                 5000m Dauerlauf
@@ -176,7 +173,7 @@ export default function HomePage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setTestauswahlOpen(false)}
-                className="border-2 border-teal-600 hover:bg-teal-50 text-teal-700 py-5 sm:py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
+                className="border-2 border-[#004A9F] hover:bg-blue-50 text-[#004A9F] py-5 sm:py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
               >
                 <span>🏅</span>
                 800m Lauf
