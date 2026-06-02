@@ -238,7 +238,7 @@ export default function Lauf800mPage() {
     <main className="min-h-screen bg-gray-50">
       {/* Breadcrumb */}
       <div className="bg-white border-b border-gray-200 py-3">
-        <div className="max-w-6xl mx-auto px-6 text-sm">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 text-sm">
           <Link href="/" className="text-blue-600 hover:text-blue-700">Zur Homepage</Link>
           {' / '}
           <span className="text-gray-600">800m Lauf</span>
@@ -246,8 +246,8 @@ export default function Lauf800mPage() {
       </div>
 
       {/* Header */}
-      <div className="bg-white border-b border-gray-300 py-12">
-        <div className="max-w-6xl mx-auto px-6">
+      <div className="bg-white border-b border-gray-300 py-8 sm:py-12">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6">
           <h1 className="text-4xl font-bold text-blue-700 mb-4">
             800m Lauf
           </h1>
@@ -258,7 +258,7 @@ export default function Lauf800mPage() {
       </div>
 
       {/* Accordions */}
-      <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div className="space-y-3">
           {sections.map((section) => (
             <div key={section.id} className="border border-gray-200 rounded-lg overflow-hidden">
