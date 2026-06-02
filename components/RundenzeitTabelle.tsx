@@ -58,6 +58,16 @@ export default function RundenzeitTabelle() {
 
   useEffect(() => () => { if (intervalRef.current) clearInterval(intervalRef.current) }, [])
 
+  // Auto-stop nach 5000m (alle 13 Runden erfasst)
+  useEffect(() => {
+    if (captured.every(Boolean) && isRunning) {
+      if (intervalRef.current) clearInterval(intervalRef.current)
+      intervalRef.current = null
+      baseMsRef.current = elapsedMs
+      setIsRunning(false)
+    }
+  }, [captured, isRunning, elapsedMs])
+
   // aktuelle Zwischenzeit (laufende Runde) in ms
   const currentSplitMs = Math.max(0, elapsedMs - lastMarkRef.current)
 
@@ -66,6 +76,7 @@ export default function RundenzeitTabelle() {
 
   // Runde an Position i erfassen (Zwischenzeit übertragen)
   const captureLap = (i: number) => {
+    if (captured[i]) return
     const total = nowMs()
     const splitMs = Math.max(0, total - lastMarkRef.current)
     const splitSec = Math.round(splitMs / 100) / 10 // 1 Nachkommastelle
@@ -226,58 +237,68 @@ export default function RundenzeitTabelle() {
             const isCaptured = captured[i]
             const barPct = i > 0 && isCaptured ? (val / maxLap) * 100 : 0
             return (
-              <div
+              <button
                 key={i}
-                className={`flex items-center gap-2 sm:gap-3 rounded-lg px-3 py-2 border transition-colors ${
-                  isActive ? 'border-blue-500 bg-blue-50 ring-1 ring-blue-300'
-                  : isCaptured ? 'border-green-200 bg-green-50'
-                  : 'border-gray-200 bg-gray-50'
+                onClick={() => captureLap(i)}
+                disabled={isCaptured || elapsedMs === 0}
+                className={`w-full flex items-center gap-2 sm:gap-3 rounded-lg px-4 py-3 border-2 transition-all cursor-pointer active:scale-[0.99] disabled:cursor-not-allowed ${
+                  isCaptured
+                    ? 'border-green-300 bg-green-100 hover:bg-green-150'
+                    : isActive
+                    ? 'border-blue-400 bg-blue-50 hover:bg-blue-100 ring-1 ring-blue-300'
+                    : 'border-red-200 bg-red-50 hover:bg-red-100'
                 }`}
               >
-                <span className="w-32 sm:w-40 text-sm font-medium text-gray-700 flex-shrink-0">{lapLabel(i)}</span>
+                <span className={`w-32 sm:w-40 text-sm font-semibold flex-shrink-0 ${
+                  isCaptured ? 'text-green-900' : 'text-gray-700'
+                }`}>
+                  {lapLabel(i)}
+                </span>
 
                 {/* Mini-Balken zur Tempo-Visualisierung (volle Runden) */}
-                <div className="hidden sm:block flex-1 h-2.5 bg-gray-200 rounded-full overflow-hidden">
+                <div className="hidden sm:block flex-1 h-2.5 bg-white/60 rounded-full overflow-hidden">
                   {i > 0 && isCaptured && (
-                    <div className="h-full bg-blue-500 rounded-full transition-all" style={{ width: `${barPct}%` }} />
+                    <div className="h-full bg-green-600 rounded-full transition-all" style={{ width: `${barPct}%` }} />
                   )}
                 </div>
 
                 <input
                   type="number"
                   step="0.1"
-                  className={`border p-2 rounded-lg w-24 text-right font-mono focus:outline-none focus:ring-2 focus:ring-blue-400 ${
-                    isCaptured ? 'border-green-300 bg-white' : 'border-gray-300'
+                  onClick={e => e.stopPropagation()}
+                  className={`border p-2 rounded-lg w-24 text-right font-mono focus:outline-none focus:ring-2 ${
+                    isCaptured
+                      ? 'border-green-400 bg-white/80 text-green-900 font-bold'
+                      : 'border-gray-300 bg-white'
                   }`}
                   placeholder="Sek."
                   value={isCaptured || val !== 0 ? val : ''}
                   onChange={e => handleRoundChange(i, e.target.value)}
                 />
 
-                <button
-                  onClick={() => captureLap(i)}
-                  disabled={elapsedMs === 0}
-                  title="Aktuelle Zwischenzeit in diese Runde übertragen"
-                  className="flex-shrink-0 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-white px-3 py-2 rounded-lg text-sm font-semibold transition-colors active:scale-95"
-                >
-                  ⏱
-                </button>
-
                 {isCaptured && (
                   <button
-                    onClick={() => clearLap(i)}
+                    onClick={e => {
+                      e.stopPropagation()
+                      clearLap(i)
+                    }}
                     title="Runde leeren"
-                    className="flex-shrink-0 text-gray-300 hover:text-red-500 transition-colors"
+                    className="flex-shrink-0 text-red-400 hover:text-red-600 transition-colors text-lg"
                   >
                     ✕
                   </button>
                 )}
 
-                <label className="flex items-center gap-1 text-xs text-gray-500 flex-shrink-0 ml-1">
-                  <input type="checkbox" checked={ignore[i]} onChange={() => toggleIgnore(i)} />
+                <label className="flex items-center gap-1 text-xs text-gray-600 flex-shrink-0">
+                  <input
+                    type="checkbox"
+                    onClick={e => e.stopPropagation()}
+                    checked={ignore[i]}
+                    onChange={() => toggleIgnore(i)}
+                  />
                   <span className="hidden sm:inline">ignor.</span>
                 </label>
-              </div>
+              </button>
             )
           })}
         </div>
