@@ -267,6 +267,16 @@ export default function Dauerlauf5000mSolo() {
         </button>
 
         {/* Steuerung */}
+        <button
+          onClick={finish}
+          disabled={laps.length === 0}
+          className={`w-full disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-white py-4 rounded-xl text-lg font-bold transition-colors active:scale-95 ${
+            allDone ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-700 hover:bg-blue-800'
+          }`}
+        >
+          {allDone ? '📊 Zur Auswertung' : '🏁 Ziel & Auswertung'}
+        </button>
+
         <div className="flex gap-3">
           {!isRunning ? (
             <button
@@ -292,16 +302,6 @@ export default function Dauerlauf5000mSolo() {
             ↺ Letzte Runde
           </button>
         </div>
-
-        <button
-          onClick={finish}
-          disabled={laps.length === 0}
-          className={`w-full disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-white py-4 rounded-xl text-lg font-bold transition-colors active:scale-95 ${
-            allDone ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-700 hover:bg-blue-800'
-          }`}
-        >
-          {allDone ? '📊 Zur Auswertung' : '🏁 Ziel & Auswertung'}
-        </button>
 
         {/* Rundenliste */}
         {laps.length > 0 && (
