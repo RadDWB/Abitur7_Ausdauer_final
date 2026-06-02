@@ -25,7 +25,7 @@ export default function BelastungssteuerungslaufPage() {
   const sections: AccordionSection[] = [
     {
       id: 'overview',
-      title: '📖 Überblick: Was & Wofür',
+      title: 'Überblick: Was & Wofür',
       icon: '📚',
       content: (
         <div className="space-y-6 text-gray-700">
@@ -91,8 +91,8 @@ export default function BelastungssteuerungslaufPage() {
     },
     {
       id: 'ablauf',
-      title: '⚙️ Wie läuft der Test ab?',
-      icon: '⚙️',
+      title: 'Wie läuft der Test ab?',
+      icon: '🏃',
       content: (
         <div className="space-y-4 text-gray-700">
           <h4 className="font-bold text-gray-900">Vorbereitung (15-30 Min vorher):</h4>
@@ -120,8 +120,8 @@ export default function BelastungssteuerungslaufPage() {
     },
     {
       id: 'schueler-info',
-      title: '👨 Schüler Information',
-      icon: '👨',
+      title: 'Schüler Information',
+      icon: '👤',
       content: (
         <div className="space-y-4 text-gray-700">
           <h4 className="font-bold text-gray-900">Anforderungen:</h4>
@@ -179,8 +179,8 @@ export default function BelastungssteuerungslaufPage() {
     },
     {
       id: 'lehrer-info',
-      title: '📋 Lehrer Information',
-      icon: '📋',
+      title: 'Lehrer Information',
+      icon: '📝',
       content: (
         <div className="space-y-4 text-gray-700">
           <h4 className="font-bold text-gray-900">Sicherheitsaspekte:</h4>
@@ -341,7 +341,7 @@ export default function BelastungssteuerungslaufPage() {
     },
     {
       id: 'faq',
-      title: '❓ Häufig gestellte Fragen',
+      title: 'Häufig gestellte Fragen',
       icon: '❓',
       content: (
         <div className="space-y-4 text-gray-700 text-sm">
