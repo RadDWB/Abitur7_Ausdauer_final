@@ -252,70 +252,17 @@ export default function BelastungssteuerungslaufPage() {
     },
     {
       id: 'bewertung',
-      title: 'Normwerte & Bewertung',
+      title: 'Bewertung',
       icon: '⭐',
       content: (
         <div className="space-y-4 text-gray-700">
-          <h4 className="font-bold text-gray-900">Normwerte Jungen/Männer (Klasse 11-12):</h4>
-          <table className="w-full text-sm border-collapse mb-4">
-            <tbody>
-              <tr className="border-b bg-blue-50">
-                <td className="p-2 font-semibold">Sehr gut</td>
-                <td className="p-2">18:00-20:00</td>
-                <td className="p-2">Note 1-2</td>
-              </tr>
-              <tr className="border-b">
-                <td className="p-2 font-semibold">Gut</td>
-                <td className="p-2">20:00-22:00</td>
-                <td className="p-2">Note 2-3</td>
-              </tr>
-              <tr className="border-b">
-                <td className="p-2 font-semibold">Befriedigend</td>
-                <td className="p-2">22:00-24:00</td>
-                <td className="p-2">Note 3-4</td>
-              </tr>
-              <tr>
-                <td className="p-2 font-semibold">Ausreichend</td>
-                <td className="p-2">24:00-26:00</td>
-                <td className="p-2">Note 4-5</td>
-              </tr>
-            </tbody>
-          </table>
+          <p className="text-sm">
+            Die Note des Belastungssteuerungslaufs hängt <strong>nicht von der absoluten Zeit oder vom Geschlecht</strong> ab,
+            sondern allein davon, wie genau du deine selbst gewählte Zielzeit triffst und wie gleichmäßig du läufst.
+            Wie das im Detail berechnet wird, erklärt der folgende Abschnitt:
+          </p>
 
-          <h4 className="font-bold text-gray-900">Normwerte Mädchen/Frauen (Klasse 11-12):</h4>
-          <table className="w-full text-sm border-collapse mb-4">
-            <tbody>
-              <tr className="border-b bg-blue-50">
-                <td className="p-2 font-semibold">Sehr gut</td>
-                <td className="p-2">20:00-22:00</td>
-                <td className="p-2">Note 1-2</td>
-              </tr>
-              <tr className="border-b">
-                <td className="p-2 font-semibold">Gut</td>
-                <td className="p-2">22:00-24:00</td>
-                <td className="p-2">Note 2-3</td>
-              </tr>
-              <tr className="border-b">
-                <td className="p-2 font-semibold">Befriedigend</td>
-                <td className="p-2">24:00-26:00</td>
-                <td className="p-2">Note 3-4</td>
-              </tr>
-              <tr>
-                <td className="p-2 font-semibold">Ausreichend</td>
-                <td className="p-2">26:00-28:00</td>
-                <td className="p-2">Note 4-5</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div className="mt-2">
-            <BewertungErklaerung defaultOpen />
-          </div>
-
-          <div className="bg-blue-50 border-l-4 border-blue-600 p-3 mt-4">
-            <p className="text-sm font-semibold text-blue-900">Woher kommen die Normwerte?</p>
-            <p className="text-sm text-blue-800">Die Normwerte des Belastungssteuerungslaufs basieren auf den Richtlinien des Ministeriums für Schule und Bildung NRW sowie den Qualis-Empfehlungen für den Sport-Abitur in Nordrhein-Westfalen. Sie wurden aus langjährigen Leistungsdaten von Schüler*innen der Oberstufe ermittelt und spiegeln realistische Erwartungen für unterschiedliche Trainingsniveaus wider.</p>
-          </div>
+          <BewertungErklaerung defaultOpen />
         </div>
       )
     },
