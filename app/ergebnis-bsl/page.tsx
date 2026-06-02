@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { decodeBslRun, fmtMsShort, type BslShareData } from '../lib/dauerlauf'
+import { decodeBslRun, fmtMsShort, bslFloorSec, type BslShareData } from '../lib/dauerlauf'
 import calculate from '../../utils/berechnung'
 import BewertungErklaerung from '../../components/BewertungErklaerung'
 
@@ -74,6 +74,11 @@ export default function ErgebnisBslPage() {
   // Vollständige Bewertung (Punkte + Note) aus denselben Rundendaten
   const result = calculate(data.l, new Array(data.l.length).fill(false), data.z, data.n)
 
+  // Mindestanforderung (Gate): laufende Ausdauerbelastung statt Gehtempo
+  const floorSec = bslFloorSec(data.g)
+  const floorLabel = `${Math.floor(floorSec / 60)}:00`
+  const unterSchwelle = totalSec > floorSec
+
   return (
     <main className="min-h-screen bg-gray-50">
       <div className="max-w-3xl mx-auto px-4 py-8 space-y-6">
@@ -101,6 +106,20 @@ export default function ErgebnisBslPage() {
             <p className="text-2xl font-mono font-bold text-gray-700">{data.z}</p>
           </div>
         </div>
+
+        {/* Hinweis: Mindestanforderung nicht erfüllt */}
+        {unterSchwelle && (
+          <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+            <p className="text-sm text-amber-800">
+              <strong>⚠ Mindestanforderung nicht erfüllt:</strong> Die Endzeit ({istZeit}) liegt
+              über der Schwelle von {floorLabel} min für 5000m. Unterhalb dieser Geschwindigkeit kann
+              nicht von einer durchgehend laufenden Ausdauerbelastung ausgegangen werden. Die unten
+              gezeigte Bewertung von Pacing und Genauigkeit bleibt davon unberührt – die
+              Ausdauerkomponente gilt jedoch als nicht erfüllt (Ausnahmen aus gesundheitlichen
+              Gründen sind möglich).
+            </p>
+          </div>
+        )}
 
         {/* Bewertung */}
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">

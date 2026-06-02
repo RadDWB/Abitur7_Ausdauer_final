@@ -1,7 +1,7 @@
 'use client'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import calculate, { Result } from '../utils/berechnung'
-import { fmtMs, fmtMsShort, buildBslShareUrl, type BslShareData } from '../app/lib/dauerlauf'
+import { fmtMs, fmtMsShort, buildBslShareUrl, bslFloorSec, type BslShareData, type BslGender } from '../app/lib/dauerlauf'
 import * as XLSX from 'xlsx'
 import jsPDF from 'jspdf'
 import BewertungErklaerung from './BewertungErklaerung'
@@ -15,6 +15,7 @@ function lapLabel(i: number): string {
 export default function RundenzeitTabelle() {
   const [name, setName] = useState('')
   const [zielzeit, setZielzeit] = useState('')
+  const [geschlecht, setGeschlecht] = useState<BslGender | ''>('')
   const [runden, setRunden] = useState<number[]>(Array(LAP_COUNT).fill(0))
   const [captured, setCaptured] = useState<boolean[]>(Array(LAP_COUNT).fill(false))
   const [ignore, setIgnore] = useState<boolean[]>(Array(LAP_COUNT).fill(false))
@@ -142,6 +143,7 @@ export default function RundenzeitTabelle() {
       z: result.istZeit,
       l: runden,
       d: new Date().toISOString().slice(0, 10),
+      ...(geschlecht ? { g: geschlecht } : {}),
     }
     const url = buildBslShareUrl(window.location.origin, data)
     setShareUrl(url)
@@ -164,6 +166,19 @@ export default function RundenzeitTabelle() {
   const sumSec = runden.reduce((s, t) => s + t, 0)
   const fullLapTimes = runden.filter((_, i) => i > 0 && captured[i])
   const maxLap = Math.max(1, ...fullLapTimes)
+
+  // ─── Mindestanforderung (Gate) ───────────────────────────────
+  // Schwelle, ab der von einer laufenden Ausdauerbelastung (statt
+  // Gehtempo) ausgegangen werden kann. Reine Validitäts-/Hinweisfunktion.
+  const floorSec = bslFloorSec(geschlecht)
+  const zielSec = (() => {
+    const p = zielzeit.split(':')
+    if (p.length === 2) return (parseInt(p[0], 10) || 0) * 60 + (parseInt(p[1], 10) || 0)
+    return parseFloat(zielzeit) || 0
+  })()
+  const zielUnterSchwelle = zielSec > floorSec
+  const endzeitUnterSchwelle = capturedCount === LAP_COUNT && sumSec > floorSec
+  const floorLabel = `${Math.floor(floorSec / 60)}:00`
 
   return (
     <div className="space-y-6">
@@ -190,6 +205,46 @@ export default function RundenzeitTabelle() {
             />
           </div>
         </div>
+
+        {/* Geschlecht – nur für die Mindestschwelle (keine Notennorm) */}
+        <div className="mt-4">
+          <label className="font-semibold block mb-1 text-gray-900">
+            Geschlecht <span className="font-normal text-gray-500 text-sm">(nur für Mindestanforderung)</span>
+          </label>
+          <div className="flex gap-2 flex-wrap">
+            {([
+              { val: 'w' as const, label: '♀ Weiblich', sub: 'Schwelle 43:00' },
+              { val: 'm' as const, label: '♂ Männlich', sub: 'Schwelle 40:00' },
+              { val: '' as const, label: 'Keine Angabe', sub: 'Schwelle 43:00' },
+            ]).map(opt => (
+              <button
+                key={opt.val || 'none'}
+                type="button"
+                onClick={() => setGeschlecht(opt.val)}
+                className={`flex-1 min-w-[120px] border-2 rounded-lg px-3 py-2 text-sm font-semibold transition-all ${
+                  geschlecht === opt.val
+                    ? 'border-[#004A9F] bg-blue-50 text-[#004A9F]'
+                    : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
+                }`}
+              >
+                <span className="block">{opt.label}</span>
+                <span className="block text-xs font-normal text-gray-500">{opt.sub}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Live-Hinweis: Zielzeit unterhalb der Ausdaueranforderung */}
+        {zielUnterSchwelle && (
+          <div className="mt-4 bg-amber-50 border-l-4 border-amber-500 p-3 rounded-r-lg">
+            <p className="text-sm text-amber-800">
+              <strong>Hinweis:</strong> Die Zielzeit liegt über der Mindestanforderung ({floorLabel} min für 5000m)
+              und entspricht damit eher Gehtempo. Die Belastungssteuerung kann normal bewertet werden,
+              die eigentliche <strong>Ausdaueranforderung</strong> ist damit aber nicht erfüllt
+              (Ausnahmen aus gesundheitlichen Gründen sind möglich).
+            </p>
+          </div>
+        )}
       </div>
 
       {/* ─── Stoppuhr ─── */}
@@ -331,6 +386,20 @@ export default function RundenzeitTabelle() {
           })}
         </div>
       </div>
+
+      {/* Hinweis: tatsächliche Endzeit über der Mindestanforderung */}
+      {endzeitUnterSchwelle && (
+        <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+          <p className="text-sm text-amber-800">
+            <strong>⚠ Mindestanforderung nicht erfüllt:</strong> Die gelaufene Endzeit
+            ({fmtMsShort(sumSec * 1000)}) liegt über der Schwelle von {floorLabel} min für 5000m.
+            Unterhalb dieser Geschwindigkeit kann nicht von einer durchgehend laufenden
+            Ausdauerbelastung ausgegangen werden. Die Bewertung von Pacing und Genauigkeit
+            bleibt davon unberührt – die Ausdauerkomponente gilt jedoch als nicht erfüllt
+            (Ausnahmen aus gesundheitlichen Gründen sind möglich).
+          </p>
+        </div>
+      )}
 
       {/* ─── Aktionen ─── */}
       <div className="flex flex-wrap gap-3">

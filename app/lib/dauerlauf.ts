@@ -159,13 +159,32 @@ export function buildShareUrl(origin: string, data: RunShareData): string {
 }
 
 // ─── Belastungssteuerungslauf QR-Share ─────────────────────────
-// Datenstruktur für Belastungssteuerungslauf (keine Geschlechts-Differenzierung)
+export type BslGender = 'm' | 'w'
+
+// Mindestanforderung (Gate): sichert eine kontinuierlich laufende
+// Ausdauerbelastung statt Gehtempo. KEINE Notennorm – oberhalb der
+// Schwelle entscheidet weiterhin nur Pacing + Genauigkeit.
+// w: 43:00 (≈6,98 km/h) · m: 40:00 (≈7,50 km/h) für 5000m.
+export const BSL_FLOOR_SEC: Record<BslGender, number> = {
+  m: 40 * 60,
+  w: 43 * 60,
+}
+
+// Schwelle in Sekunden. Ohne Geschlechtsangabe wird bewusst die
+// nachsichtigere Grenze (w, 43:00) verwendet, um keinen falschen
+// Hinweis auszulösen.
+export function bslFloorSec(g?: BslGender | ''): number {
+  return g === 'm' ? BSL_FLOOR_SEC.m : BSL_FLOOR_SEC.w
+}
+
+// Datenstruktur für Belastungssteuerungslauf
 export interface BslShareData {
   v: 1                 // Schema-Version
   n: string            // Name
   z: string            // Zielzeit (MM:SS)
   l: number[]          // Rundenzeiten in Sekunden (mit 1 Dezimalstelle)
   d: string            // Datum ISO (yyyy-mm-dd)
+  g?: BslGender        // Geschlecht (optional) – nur für Mindestschwellen-Hinweis
 }
 
 export function encodeBslRun(data: BslShareData): string {
