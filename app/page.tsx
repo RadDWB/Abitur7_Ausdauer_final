@@ -17,20 +17,20 @@ export default function HomePage() {
     <main className="min-h-screen bg-gray-50">
       {/* Top Header - Title Section */}
       <div className="bg-white border-b border-gray-300">
-        <div className="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between">
-          {/* Left: Logo */}
+        <div className="max-w-6xl mx-auto px-6 py-8 flex items-center justify-center gap-8">
+          {/* Large Logo */}
           <div className="flex-shrink-0">
             <Image
               src="/AusdauertestenLK.png"
               alt="Ausdauer testen Logo"
-              width={70}
-              height={70}
-              className="rounded-full"
+              width={140}
+              height={140}
+              className="rounded-full shadow-lg"
             />
           </div>
 
           {/* Center: Main Title */}
-          <div className="flex-1 text-center px-8">
+          <div className="flex-1 text-center">
             <h1 className="text-4xl font-bold text-blue-700 mb-2">
               Ausdauertests verstehen und durchführen!
             </h1>
@@ -40,13 +40,6 @@ export default function HomePage() {
             <p className="text-xs text-gray-500 mt-1">
               Abitur Sport Leistungskurs
             </p>
-          </div>
-
-          {/* Right: Logo */}
-          <div className="flex-shrink-0">
-            <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-500 rounded-full flex items-center justify-center text-white font-bold">
-              QUA
-            </div>
           </div>
         </div>
       </div>
