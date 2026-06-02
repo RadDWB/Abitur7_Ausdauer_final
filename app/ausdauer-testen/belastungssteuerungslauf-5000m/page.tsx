@@ -330,6 +330,11 @@ export default function BelastungssteuerungslaufPage() {
           <div className="bg-gray-50 p-3 rounded text-sm">
             <p>15 = 1+ | 14 = 1 | 13 = 1- | 12 = 2+ | 11 = 2 | 10 = 2- | 9 = 3+</p>
           </div>
+
+          <div className="bg-blue-50 border-l-4 border-blue-600 p-3 mt-4">
+            <p className="text-sm font-semibold text-blue-900">Woher kommen die Normwerte?</p>
+            <p className="text-sm text-blue-800">Die Normwerte des Belastungssteuerungslaufs basieren auf den Richtlinien des Ministeriums für Schule und Bildung NRW sowie den Qualis-Empfehlungen für den Sport-Abitur in Nordrhein-Westfalen. Sie wurden aus langjährigen Leistungsdaten von Schüler*innen der Oberstufe ermittelt und spiegeln realistische Erwartungen für unterschiedliche Trainingsniveaus wider.</p>
+          </div>
         </div>
       )
     },
@@ -341,7 +346,7 @@ export default function BelastungssteuerungslaufPage() {
         <div className="space-y-4 text-gray-700 text-sm">
           <div>
             <p className="font-semibold text-gray-900">F: Kann ich auch gehen?</p>
-            <p className="text-sm">A: Nein, kontinuierliches Laufen ist erforderlich. Wenn nötig, sprechen Sie mit der Lehrkraft.</p>
+            <p className="text-sm">A: Ja, schnelles Gehen ist ausdrücklich erlaubt! Da das Tempo selbst bestimmt wird, kannst du auch eine Gehgeschwindigkeit als Zielzeit einplanen und diese dann konstant einhalten.</p>
           </div>
 
           <div>

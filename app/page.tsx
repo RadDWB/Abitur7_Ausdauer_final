@@ -11,8 +11,12 @@ export default function HomePage() {
   const [testauswahlOpen, setTestauswahlOpen] = useState(false);
   const router = useRouter();
 
-  const handleSelectTest = (testType: string) => {
+  const handleViewInfo = (testType: string) => {
     router.push(`/ausdauer-testen/${testType}`);
+  };
+
+  const handleStartTest = (testType: string) => {
+    router.push(`/ausdauer-testen/testauswahl?test=${testType}`);
   };
 
   return (
@@ -83,24 +87,24 @@ export default function HomePage() {
               <div className="bg-blue-50 p-6 rounded-lg border border-blue-200 space-y-4">
                 <div>
                   <h3 className="font-semibold text-blue-900 mb-3">Verfügbare Tests:</h3>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-3 gap-3">
                     <button
-                      onClick={() => {
-                        setTestinfoOpen(false);
-                        handleSelectTest('belastungssteuerungslauf-5000m');
-                      }}
+                      onClick={() => { setTestinfoOpen(false); handleViewInfo('belastungssteuerungslauf-5000m'); }}
                       className="border-2 border-blue-600 hover:bg-blue-100 text-blue-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
                     >
                       ⏱️ Belastungssteuerungslauf 5000m
                     </button>
                     <button
-                      onClick={() => {
-                        setTestinfoOpen(false);
-                        handleSelectTest('5000m-dauerlauf');
-                      }}
+                      onClick={() => { setTestinfoOpen(false); handleViewInfo('5000m-dauerlauf'); }}
                       className="border-2 border-blue-600 hover:bg-blue-100 text-blue-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
                     >
                       🏃 5000m Dauerlauf
+                    </button>
+                    <button
+                      onClick={() => { setTestinfoOpen(false); handleViewInfo('800m-lauf'); }}
+                      className="border-2 border-blue-600 hover:bg-blue-100 text-blue-700 py-3 px-3 rounded-lg font-semibold transition-colors text-sm"
+                    >
+                      🏅 800m Lauf
                     </button>
                   </div>
                 </div>
@@ -132,7 +136,7 @@ export default function HomePage() {
       {/* Testauswahl Modal */}
       {testauswahlOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg shadow-2xl max-w-2xl w-full p-8 border border-gray-200">
+          <div className="bg-white rounded-lg shadow-2xl max-w-4xl w-full p-8 border border-gray-200">
             {/* Close Button */}
             <div className="flex justify-end mb-4">
               <button
@@ -155,14 +159,11 @@ export default function HomePage() {
             {/* Schritt 1 */}
             <h3 className="text-xl font-bold text-gray-900 mb-6">Schritt 1: Test wählen</h3>
 
-            {/* Test Grid - nur 2 Optionen */}
-            <div className="grid grid-cols-2 gap-4 mb-6">
+            {/* Test Grid - 3 Optionen */}
+            <div className="grid grid-cols-3 gap-4 mb-6">
               {/* Belastungssteuerungslauf 5000m */}
               <button
-                onClick={() => {
-                  setTestauswahlOpen(false);
-                  handleSelectTest('belastungssteuerungslauf-5000m');
-                }}
+                onClick={() => { setTestauswahlOpen(false); handleStartTest('belastungssteuerungslauf-5000m'); }}
                 className="border-2 border-blue-600 hover:bg-blue-50 text-blue-700 py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
               >
                 <span>⏱️</span>
@@ -171,15 +172,24 @@ export default function HomePage() {
 
               {/* 5000m Dauerlauf */}
               <button
-                onClick={() => {
-                  setTestauswahlOpen(false);
-                  handleSelectTest('5000m-dauerlauf');
-                }}
+                onClick={() => { setTestauswahlOpen(false); handleStartTest('5000m-dauerlauf'); }}
                 className="border-2 border-blue-600 hover:bg-blue-50 text-blue-700 py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
               >
                 <span>🏃</span>
                 5000m Dauerlauf
               </button>
+
+              {/* 800m Lauf */}
+              <a
+                href="https://800m.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setTestauswahlOpen(false)}
+                className="border-2 border-blue-600 hover:bg-blue-50 text-blue-700 py-6 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
+              >
+                <span>🏅</span>
+                800m Lauf
+              </a>
             </div>
           </div>
         </div>
