@@ -29,7 +29,7 @@ export default function HomePage() {
               🏃
             </div>
             <span className="font-semibold text-gray-700 text-sm sm:text-base">AUSDAUER-LAB</span>
-            <span className="hidden sm:inline font-semibold text-gray-500">M06 - Ausdauertests</span>
+            <span className="hidden sm:inline font-semibold text-gray-500">M05 - Ausdauertests</span>
           </div>
           <nav className="flex items-center gap-2 sm:gap-6">
             <Link href="/" className="text-sm text-gray-600 hover:text-gray-900 hidden sm:inline">Zur Homepage</Link>
@@ -189,7 +189,7 @@ export default function HomePage() {
       {/* Footer */}
       <div className="bg-white border-t border-gray-300">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-8 text-center">
-          <p className="text-gray-700 font-semibold mb-2">Modul 6: Ausdauer testen (Abitur)</p>
+          <p className="text-gray-700 font-semibold mb-2">Modul 5: Ausdauer testen (Abitur)</p>
           <p className="text-gray-600 text-sm mb-1">Version {APP_VERSION}</p>
           <p className="text-gray-600 text-sm">© 2026 Ralf Duwenbeck Straight Edge Media. All rights reserved.</p>
         </div>
