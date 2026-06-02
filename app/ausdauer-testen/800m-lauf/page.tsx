@@ -256,10 +256,6 @@ export default function Lauf800mPage() {
             <p>A: Kombiniere Intervalltraining (200–400m schnell), Grundlagenausdauer (30 Min ruhig laufen) und gelegentliche Tempoläufe über 600m im Renntempo.</p>
           </div>
           <div>
-            <p className="font-semibold text-gray-900">F: Darf ich auch gehen?</p>
-            <p>A: Im Wettkampf ist kontinuierliches Laufen vorgeschrieben. Im Schultest kann die Lehrkraft Ausnahmen bei gesundheitlichen Einschränkungen genehmigen.</p>
-          </div>
-          <div>
             <p className="font-semibold text-gray-900">F: Wie wichtig ist der Start?</p>
             <p>A: Sehr wichtig! Ein zu schneller Start führt zu massivem Laktatanstieg und einem starken Einbruch in Runde 2. Kontrolliert starten!</p>
           </div>
