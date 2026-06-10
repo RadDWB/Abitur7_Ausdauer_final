@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import LapChart from './LapChart'
+import { useWakeLock } from '../utils/useWakeLock'
 import {
   calcPoints,
   ptsToGrade,
@@ -48,6 +49,9 @@ export default function Dauerlauf5000mSolo() {
   // QR / Teilen
   const [shareUrl, setShareUrl] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
+
+  // Display während des Laufs wach halten, damit man sich selbst stoppen kann.
+  const wakeLockActive = useWakeLock(phase === 'running')
 
   const currentMs = useCallback(
     () => baseMsRef.current + (isRunning ? Date.now() - startTimeRef.current : 0),
@@ -319,6 +323,12 @@ export default function Dauerlauf5000mSolo() {
               ))}
             </div>
           </div>
+        )}
+
+        {wakeLockActive && (
+          <p className="text-xs text-green-600 text-center px-4 flex items-center justify-center gap-1">
+            📱 Display bleibt während des Laufs an – du kannst das Handy in der Hand tragen.
+          </p>
         )}
 
         <p className="text-xs text-gray-400 text-center px-4">
