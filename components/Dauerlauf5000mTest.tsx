@@ -5,6 +5,7 @@ import Link from 'next/link'
 import * as XLSX from 'xlsx'
 import jsPDF from 'jspdf'
 import Dauerlauf5000mSolo from './Dauerlauf5000mSolo'
+import { useWakeLock } from '../utils/useWakeLock'
 
 type Mode = 'choose' | 'kurs' | 'solo'
 
@@ -152,6 +153,9 @@ export default function Dauerlauf5000mTest() {
   }, [])
 
   useEffect(() => () => { if (intervalRef.current) clearInterval(intervalRef.current) }, [])
+
+  // Display während des laufenden Kurstests wach halten (Handy in der Hand).
+  const wakeLockActive = useWakeLock(mode === 'kurs' && phase === 'running')
 
   const addStudent = () => {
     if (!newName.trim()) return
@@ -389,6 +393,11 @@ export default function Dauerlauf5000mTest() {
               ↺ Reset
             </button>
           </div>
+          {wakeLockActive && (
+            <p className="text-xs text-green-600 mt-4 flex items-center justify-center gap-1">
+              📱 Display bleibt während des Tests an.
+            </p>
+          )}
         </div>
 
         {/* Still running */}
